@@ -1,0 +1,78 @@
+{
+  "name": "retext-readability",
+  "version": "0.0.0",
+  "description": "Check readability with retext",
+  "license": "MIT",
+  "keywords": [
+    "revised",
+    "spache",
+    "robert",
+    "gunning",
+    "fog",
+    "flesch",
+    "coleman",
+    "liau",
+    "index",
+    "dale",
+    "chall",
+    "ari",
+    "reading",
+    "ease",
+    "automated",
+    "readability",
+    "formula",
+    "retext",
+    "plugin"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/wooorm/retext-readability.git"
+  },
+  "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+  "dependencies": {
+    "automated-readability": "^0.1.0",
+    "coleman-liau": "^0.1.0",
+    "dale-chall": "^0.2.2",
+    "dale-chall-formula": "^0.1.0",
+    "flesch": "^0.1.0",
+    "gunning-fog": "^0.1.0",
+    "nlcst-to-string": "^1.1.0",
+    "spache": "^0.2.2",
+    "spache-formula": "^0.1.1",
+    "syllable": "^0.1.4",
+    "unist-util-visit": "^1.0.0"
+  },
+  "devDependencies": {
+    "browserify": "^13.0.0",
+    "eslint": "^1.0.0",
+    "esmangle": "^1.0.0",
+    "istanbul": "^0.4.0",
+    "jscs": "^2.0.0",
+    "jscs-jsdoc": "^1.0.0",
+    "remark": "^3.0.0",
+    "remark-comment-config": "^2.0.2",
+    "remark-github": "^2.0.0",
+    "remark-lint": "^2.0.2",
+    "remark-slug": "^3.0.1",
+    "remark-validate-links": "^2.0.2",
+    "retext": "^1.0.0",
+    "tape": "^4.0.0",
+    "vfile": "^1.2.0",
+    "vfile-reporter": "^1.5.0"
+  },
+  "scripts": {
+    "build-md": "remark . --quiet --frail",
+    "build-bundle": "browserify index.js --bare -s retextReadability > retext-readability.js",
+    "build-mangle": "esmangle retext-readability.js > retext-readability.min.js",
+    "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
+    "lint-api": "eslint .",
+    "lint-style": "jscs --reporter inline .",
+    "lint": "npm run lint-api && npm run lint-style",
+    "test-api": "node test.js",
+    "test-coverage": "istanbul cover test.js",
+    "test": "npm run build && npm run lint && npm run test-coverage"
+  }
+}

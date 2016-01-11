@@ -1,0 +1,44 @@
+{
+  "name": "retext-readability",
+  "version": "0.0.0",
+  "description": "Check readability with retext",
+  "license": "MIT",
+  "keywords": [
+    "revised",
+    "spache",
+    "robert",
+    "gunning",
+    "fog",
+    "flesch",
+    "coleman",
+    "liau",
+    "index",
+    "dale",
+    "chall",
+    "ari",
+    "reading",
+    "ease",
+    "automated",
+    "readability",
+    "formula",
+    "retext",
+    "plugin"
+  ],
+  "repository": "wooorm/retext-readability",
+  "dependencies": {
+    "wooorm/automated-readability": "^0.1.0",
+    "wooorm/coleman-liau": "^0.1.0",
+    "wooorm/dale-chall": "^0.2.2",
+    "wooorm/dale-chall-formula": "^0.1.0",
+    "wooorm/flesch": "^0.1.0",
+    "wooorm/gunning-fog": "^0.1.0",
+    "wooorm/nlcst-to-string": "^1.1.0",
+    "wooorm/spache": "^0.2.2",
+    "wooorm/spache-formula": "^0.1.1",
+    "wooorm/syllable": "^0.1.4",
+    "wooorm/unist-util-visit": "^1.0.0"
+  },
+  "scripts": [
+    "index.js"
+  ]
+}

@@ -39,14 +39,15 @@ test('readability', function (t) {
         .use(readability)
         .process([
             'Oberon, also designated Uranus IV, is the outermost ',
-            'major moon of the planet Uranus.',
+            'major moon of the planet Uranus and quite large',
+            'and massive for a Uranian moon.',
             ''
         ].join('\n'), function (err, file) {
             t.ifError(err, 'should not fail (#2)');
 
             t.deepEqual(
                 file.messages.map(String),
-                ['1:1-2:33: Quite hard to read sentence'],
+                ['1:1-3:32: Quite hard to read sentence'],
                 'should warn when a sentence is quite hard to read'
             );
         });
@@ -57,10 +58,11 @@ test('readability', function (t) {
         })
         .process([
             'Oberon, also designated Uranus IV, is the outermost ',
-            'major moon of the planet Uranus.',
+            'major moon of the planet Uranus and quite large',
+            'and massive for a Uranian moon.',
             ''
         ].join('\n'), function (err, file) {
-            t.ifError(err, 'should not fail (#2)');
+            t.ifError(err, 'should not fail (#3)');
 
             t.deepEqual(
                 file.messages.map(String),
@@ -71,18 +73,19 @@ test('readability', function (t) {
 
     retext()
         .use(readability, {
-            'age': 12
+            'age': 14
         })
         .process([
             'Oberon, also designated Uranus IV, is the outermost ',
-            'major moon of the planet Uranus.',
+            'major moon of the planet Uranus and quite large',
+            'and massive for a Uranian moon.',
             ''
         ].join('\n'), function (err, file) {
-            t.ifError(err, 'should not fail (#2)');
+            t.ifError(err, 'should not fail (#4)');
 
             t.deepEqual(
                 file.messages.map(String),
-                ['1:1-2:33: Definitely hard to read sentence'],
+                ['1:1-3:32: Very hard to read sentence'],
                 'should support a given age (upping the warning)'
             );
         });
@@ -95,7 +98,7 @@ test('readability', function (t) {
             'and second most massive of the Uranian moons.',
             ''
         ].join('\n'), function (err, file) {
-            t.ifError(err, 'should not fail (#2)');
+            t.ifError(err, 'should not fail (#5)');
 
             t.deepEqual(
                 file.messages.map(String),
@@ -105,7 +108,9 @@ test('readability', function (t) {
         });
 
     retext()
-        .use(readability)
+        .use(readability, {
+            'age': 14
+        })
         .process([
             'Oberon, also designated Uranus IV, is the outermost ',
             'major moon of the planet Uranus and the second-largest ',
@@ -113,12 +118,12 @@ test('readability', function (t) {
             'ninth most massive moon in the Solar System.',
             ''
         ].join('\n'), function (err, file) {
-            t.ifError(err, 'should not fail (#2)');
+            t.ifError(err, 'should not fail (#6)');
 
             t.deepEqual(
                 file.messages.map(String),
                 ['1:1-4:45: Definitely hard to read sentence'],
-                'should warn when a sentence is very hard to read'
+                'should warn when a sentence is definitely hard to read'
             );
         });
 

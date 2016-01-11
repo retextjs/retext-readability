@@ -32,9 +32,9 @@ var spacheFormula = require('spache-formula');
  */
 
 var DEFAULT_TARGET_AGE = 16;
-var SURENESS_THRESHOLD = 1 / 2;
-var SURENESS_THRESHOLD_VERY = 2 / 3;
-var SURENESS_THRESHOLD_DEFINITELY = 1;
+var SURENESS_THRESHOLD = 4 / 7;
+var SURENESS_THRESHOLD_VERY = 5 / 7;
+var SURENESS_THRESHOLD_DEFINITELY = 6 / 7;
 
 /*
  * Methods.
@@ -100,7 +100,7 @@ function report(file, node, target, results) {
     var level;
 
     while (++index < length) {
-        if (results[index] >= target) {
+        if (results[index] > target) {
             result++;
         }
     }

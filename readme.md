@@ -19,7 +19,7 @@ AMD, CommonJS, and globals module, [uncompressed and compressed][releases].
 
 ```js
 var retext = require('retext');
-var readability = require('.');
+var readability = require('retext-readability');
 var report = require('vfile-reporter');
 
 var doc = [

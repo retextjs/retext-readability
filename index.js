@@ -89,11 +89,12 @@ function smogToAge(value) {
  *
  * @param {File} file - Virtual file.
  * @param {Node} node - NLCST node.
+ * @param {number} threshold - Target threshold.
  * @param {number} target - Target age.
  * @param {Array.<number>} results - Reading-level in age
  *   for `node` according to several algorithms.
  */
-function report(file, node, target, results) {
+function report(file, node, threshold, target, results) {
     var length = results.length;
     var result = 0;
     var index = -1;
@@ -107,7 +108,7 @@ function report(file, node, target, results) {
 
     result /= length;
 
-    if (result >= SURENESS_THRESHOLD) {
+    if (result >= threshold) {
         if (result >= SURENESS_THRESHOLD_DEFINITELY) {
             level = 'Definitely';
         } else if (result >= SURENESS_THRESHOLD_VERY) {
@@ -128,7 +129,9 @@ function report(file, node, target, results) {
  * @return {Function} - `transformer`.
  */
 function attacher(processor, options) {
-    var targetAge = (options || {}).age || DEFAULT_TARGET_AGE;
+    var settings = options || {};
+    var targetAge = settings.age || DEFAULT_TARGET_AGE;
+    var threshold = settings.threshold || SURENESS_THRESHOLD;
 
     return function (tree, file) {
         /**
@@ -216,7 +219,7 @@ function attacher(processor, options) {
                 'letter': letters
             };
 
-            report(file, sentence, targetAge, [
+            report(file, sentence, threshold, targetAge, [
                 gradeToAge(daleChallFormula.gradeLevel(
                     daleChallFormula(counts)
                 )[1]),

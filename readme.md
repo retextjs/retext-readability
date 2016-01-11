@@ -87,6 +87,12 @@ Detect possibly hard to read sentences.
         provide varying results, so your milage might vary with
         people actually that age. :wink:
 
+    *   `threshold` (`number`, default: `4 / 7`)
+        — By default, 4 out of the 7 algorithms need to agree that
+        a sentence is higher that the target age and whether it should
+        be warned about.  This can be modified by passing in a new
+        threshold.
+
 ## License
 
 [MIT][license] © [Titus Wormer][author]

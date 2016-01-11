@@ -54,7 +54,7 @@ test('readability', function (t) {
 
     retext()
         .use(readability, {
-            'age': 18
+            'threshold': 5 / 7
         })
         .process([
             'Oberon, also designated Uranus IV, is the outermost ',
@@ -63,6 +63,25 @@ test('readability', function (t) {
             ''
         ].join('\n'), function (err, file) {
             t.ifError(err, 'should not fail (#3)');
+
+            t.deepEqual(
+                file.messages.map(String),
+                [],
+                'should support a threshold'
+            );
+        });
+
+    retext()
+        .use(readability, {
+            'age': 18
+        })
+        .process([
+            'Oberon, also designated Uranus IV, is the outermost ',
+            'major moon of the planet Uranus and quite large',
+            'and massive for a Uranian moon.',
+            ''
+        ].join('\n'), function (err, file) {
+            t.ifError(err, 'should not fail (#4)');
 
             t.deepEqual(
                 file.messages.map(String),
@@ -81,7 +100,7 @@ test('readability', function (t) {
             'and massive for a Uranian moon.',
             ''
         ].join('\n'), function (err, file) {
-            t.ifError(err, 'should not fail (#4)');
+            t.ifError(err, 'should not fail (#5)');
 
             t.deepEqual(
                 file.messages.map(String),
@@ -98,7 +117,7 @@ test('readability', function (t) {
             'and second most massive of the Uranian moons.',
             ''
         ].join('\n'), function (err, file) {
-            t.ifError(err, 'should not fail (#5)');
+            t.ifError(err, 'should not fail (#6)');
 
             t.deepEqual(
                 file.messages.map(String),
@@ -118,7 +137,7 @@ test('readability', function (t) {
             'ninth most massive moon in the Solar System.',
             ''
         ].join('\n'), function (err, file) {
-            t.ifError(err, 'should not fail (#6)');
+            t.ifError(err, 'should not fail (#7)');
 
             t.deepEqual(
                 file.messages.map(String),

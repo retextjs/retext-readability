@@ -2,7 +2,8 @@
 
 Check readability with **retext**.  Applies [Dale—Chall][dale-chall],
 [Automated Readability][automated-readability], [Coleman-Liau][coleman-liau],
-[Flesch][flesch], [Gunning-Fog][gunning-fog], and [Spache][spache].
+[Flesch][flesch], [Gunning-Fog][gunning-fog], [SMOG][smog],
+and [Spache][spache].
 
 ## Installation
 
@@ -121,3 +122,5 @@ Detect possibly hard to read sentences.
 [gunning-fog]: https://github.com/wooorm/gunning-fog
 
 [spache]: https://github.com/wooorm/spache-formula
+
+[smog]: https://github.com/wooorm/smog-formula

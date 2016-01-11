@@ -23,6 +23,7 @@ var daleChallFormula = require('dale-chall-formula');
 var ari = require('automated-readability');
 var colemanLiau = require('coleman-liau');
 var flesch = require('flesch');
+var smog = require('smog-formula');
 var gunningFog = require('gunning-fog');
 var spacheFormula = require('spache-formula');
 
@@ -42,6 +43,8 @@ var SURENESS_THRESHOLD_DEFINITELY = 1;
 var has = {}.hasOwnProperty;
 var floor = Math.floor;
 var round = Math.round;
+var ceil = Math.ceil;
+var sqrt = Math.sqrt;
 
 /**
  * Calculate the typical starting age when someone joins
@@ -65,6 +68,19 @@ function gradeToAge(grade) {
  */
 function fleschToAge(value) {
     return 20 - floor(value / 10);
+}
+
+/**
+ * Calculate the age relating to a SMOG result.
+ *
+ * @see http://www.readabilityformulas.com/
+ *   smog-readability-formula.php
+ *
+ * @param {number} value - SMOG result.
+ * @return {number} - Typical age for `value`.
+ */
+function smogToAge(value) {
+    return ceil(sqrt(value) + 2.5);
 }
 
 /**
@@ -125,8 +141,9 @@ function attacher(processor, options) {
             var easyWord = {};
             var complexPolysillabicWord = 0;
             var familiarWordCount = 0;
-            var easyWordCount = 0;
+            var polysillabicWord = 0;
             var totalSyllables = 0;
+            var easyWordCount = 0;
             var wordCount = 0;
             var letters = 0;
             var counts;
@@ -154,8 +171,12 @@ function attacher(processor, options) {
                  * index might be over-eager.
                  */
 
-                if (syllables > 3 && head !== head.toUpperCase()) {
-                    complexPolysillabicWord++;
+                if (syllables >= 3) {
+                    polysillabicWord++;
+
+                    if (head !== head.toUpperCase()) {
+                        complexPolysillabicWord++;
+                    }
                 }
 
                 /*
@@ -185,6 +206,7 @@ function attacher(processor, options) {
 
             counts = {
                 'complexPolysillabicWord': complexPolysillabicWord,
+                'polysillabicWord': polysillabicWord,
                 'unfamiliarWord': wordCount - familiarWordCount,
                 'difficultWord': wordCount - easyWordCount,
                 'syllable': totalSyllables,
@@ -201,6 +223,7 @@ function attacher(processor, options) {
                 gradeToAge(ari(counts)),
                 gradeToAge(colemanLiau(counts)),
                 fleschToAge(flesch(counts)),
+                smogToAge(smog(counts)),
                 gradeToAge(gunningFog(counts)),
                 gradeToAge(spacheFormula(counts))
             ]);

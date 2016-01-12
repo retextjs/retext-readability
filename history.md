@@ -2,6 +2,11 @@
 
 <!--lint disable no-multiple-toplevel-headings -->
 
+1.2.0 / 2016-01-13
+==================
+
+*   Add support for `minWords` as a setting ([bd67462](https://github.com/wooorm/retext-readability/commit/bd67462))
+
 1.1.0 / 2016-01-11
 ==================
 

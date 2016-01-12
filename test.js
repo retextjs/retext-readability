@@ -146,5 +146,31 @@ test('readability', function (t) {
             );
         });
 
+    retext()
+        .use(readability)
+        .process('Honorificabilitudinitatibus.', function (err, file) {
+            t.ifError(err, 'should not fail (#8)');
+
+            t.deepEqual(
+                file.messages.map(String),
+                [],
+                'should support minWords (default)'
+            );
+        });
+
+    retext()
+        .use(readability, {
+            'minWords': 0
+        })
+        .process('Honorificabilitudinitatibus.', function (err, file) {
+            t.ifError(err, 'should not fail (#8)');
+
+            t.deepEqual(
+                file.messages.map(String),
+                ['1:1-1:29: Quite hard to read sentence'],
+                'should support `minWords` (config)'
+            );
+        });
+
     t.end();
 });

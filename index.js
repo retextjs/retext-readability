@@ -32,6 +32,7 @@ var spacheFormula = require('spache-formula');
  */
 
 var DEFAULT_TARGET_AGE = 16;
+var WORDYNESS_THRESHOLD = 5;
 var SURENESS_THRESHOLD = 4 / 7;
 var SURENESS_THRESHOLD_VERY = 5 / 7;
 var SURENESS_THRESHOLD_DEFINITELY = 6 / 7;
@@ -132,6 +133,11 @@ function attacher(processor, options) {
     var settings = options || {};
     var targetAge = settings.age || DEFAULT_TARGET_AGE;
     var threshold = settings.threshold || SURENESS_THRESHOLD;
+    var minWords = settings.minWords;
+
+    if (minWords === null || minWords === undefined) {
+        minWords = WORDYNESS_THRESHOLD;
+    }
 
     return function (tree, file) {
         /**
@@ -206,6 +212,10 @@ function attacher(processor, options) {
                     easyWordCount++;
                 }
             });
+
+            if (wordCount < minWords) {
+                return;
+            }
 
             counts = {
                 'complexPolysillabicWord': complexPolysillabicWord,

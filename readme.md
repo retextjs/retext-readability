@@ -93,6 +93,14 @@ Detect possibly hard to read sentences.
         be warned about.  This can be modified by passing in a new
         threshold.
 
+    *   `minWords` (`number`, default: `5`)
+        — Minimum number of words a sentence should have when warning.
+        Most algorithms are designed to take a large sample of
+        sentences to detect the body’s reading level.  This plug-in,
+        however, works on a per-sentence basis.  This makes the results
+        quite skewered when said sentence has, for example, a few long
+        words or some unknown ones.
+
 ## License
 
 [MIT][license] © [Titus Wormer][author]

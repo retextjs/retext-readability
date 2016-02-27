@@ -2,6 +2,11 @@
 
 <!--lint disable no-multiple-toplevel-headings -->
 
+1.3.0 / 2016-02-27
+==================
+
+*   Add `source`, `level` to messages ([e2c873f](https://github.com/wooorm/retext-readability/commit/e2c873f))
+
 1.2.0 / 2016-01-13
 ==================
 

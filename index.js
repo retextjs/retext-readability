@@ -100,6 +100,7 @@ function report(file, node, threshold, target, results) {
     var result = 0;
     var index = -1;
     var level;
+    var message;
 
     while (++index < length) {
         if (results[index] > target) {
@@ -118,7 +119,10 @@ function report(file, node, threshold, target, results) {
             level = 'Quite';
         }
 
-        file.warn(level + ' hard to read sentence', node);
+        message = file.warn(level + ' hard to read sentence', node);
+
+        message.level = level.toLowerCase();
+        message.source = 'retext-readability';
     }
 }
 

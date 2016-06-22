@@ -1,14 +1,21 @@
 {
   "excludeFiles": [
-    "components/",
     "coverage/",
     "node_modules/",
     "retext-readability.js",
     "retext-readability.min.js"
   ],
-  "preset": "yandex",
-  "requireQuotedKeysInObjects": true,
-  "disallowQuotedKeysInObjects": false,
+  "preset": "crockford",
+  "requireMultipleVarDecl": false,
+  "disallowDanglingUnderscores": false,
+  "disallowQuotedKeysInObjects": {
+    "allExcept": [
+      "reserved"
+    ]
+  },
+  "disallowKeywords": [
+    "with"
+  ],
   "maximumLineLength": {
     "value": 79,
     "allExcept": [

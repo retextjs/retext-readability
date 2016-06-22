@@ -1,25 +1,27 @@
 language: node_js
 node_js:
-- '0.10'
 - '0.11'
 - '0.12'
 - '4.0'
 - '5.0'
-- iojs
+- '6.0'
 sudo: false
-after_script: npm install codecov.io && cat ./coverage/lcov.info | codecov
+after_success:
+- bash <(curl -s https://codecov.io/bash)
 deploy:
   - provider: npm
     email: tituswormer@gmail.com
     api_key:
-        secure: FMKiSYTPinEOuMGHPgPONHze0SDPbnHdJ4jhIaJYTHPlIw/DS+L7JhQIdNXTudK3zrPDku9z6NWZTN9747+lerRnD7p7xs3yTCBhn3IM7b9Dj2C9dQ63cnR1G4FqTNDYEmOIIu42XIJ7QlqIcaX0sheUBYi90t0eS7GbXk4dhGxa0RjWHCQMqqVwP24puR6xNqyqD8FBs7rSY52twOpsGIt0WsAUJuAXlx+utk1+CBy//S7AiVDOURvGl6DidgSPDGOvv+bwArMOc6XhH/WCzaX/Osv4p6FwSRDFIkqwNJrjwIKX03SdP6Dtc0eEbQy38dU3wo7O3Kix5lEuqDwPJ8EtUxxHhREhfKxYWLRbbT25lQ0O1lzSoajmLb/i1z6vUXENyuAYZA4XPJPGXlUjrqv97MnRlTaen2hOcmx4LLcWWmH1aMCs1fBf3DpwxeggfGqgCoj25qmZ8PS+AjUNn+OuxqN8r0bFtl7WYbnUb51P4I0kVwzxqfEM0PGXPw8gaRWQ0ejqtH3lmoXT5GKqydco3hzWmvZbJI6j4bLzYCsDpXNOZn3hsZ5Rj3cOqLeeffvcTZjTS7THZl/VUdx8z463lfqft4YvjpbqDQN7oJMAvvhqyr2k7sUOE9YDmKTqPJwzNru00HinZcSziOdlZLpN2TWnrqKKlj6bgcu4JJ4=
+      secure: FMKiSYTPinEOuMGHPgPONHze0SDPbnHdJ4jhIaJYTHPlIw/DS+L7JhQIdNXTudK3zrPDku9z6NWZTN9747+lerRnD7p7xs3yTCBhn3IM7b9Dj2C9dQ63cnR1G4FqTNDYEmOIIu42XIJ7QlqIcaX0sheUBYi90t0eS7GbXk4dhGxa0RjWHCQMqqVwP24puR6xNqyqD8FBs7rSY52twOpsGIt0WsAUJuAXlx+utk1+CBy//S7AiVDOURvGl6DidgSPDGOvv+bwArMOc6XhH/WCzaX/Osv4p6FwSRDFIkqwNJrjwIKX03SdP6Dtc0eEbQy38dU3wo7O3Kix5lEuqDwPJ8EtUxxHhREhfKxYWLRbbT25lQ0O1lzSoajmLb/i1z6vUXENyuAYZA4XPJPGXlUjrqv97MnRlTaen2hOcmx4LLcWWmH1aMCs1fBf3DpwxeggfGqgCoj25qmZ8PS+AjUNn+OuxqN8r0bFtl7WYbnUb51P4I0kVwzxqfEM0PGXPw8gaRWQ0ejqtH3lmoXT5GKqydco3hzWmvZbJI6j4bLzYCsDpXNOZn3hsZ5Rj3cOqLeeffvcTZjTS7THZl/VUdx8z463lfqft4YvjpbqDQN7oJMAvvhqyr2k7sUOE9YDmKTqPJwzNru00HinZcSziOdlZLpN2TWnrqKKlj6bgcu4JJ4=
     on:
       tags: true
+      node: '5.0'
   - provider: releases
     api_key:
-        secure: bL/pNn7N0/5UdnodVLH+tDc7hGMEqOxby2isAFK+e6Oix3to332MM03gUGlVC3JdRx3b7k++a63f/GexDQpygGbIbHHnXIk+K4W7UgET7gGokbqzIG1QggTzdldJISdN1Tfvhup/wkwkmzXbOORu8lkMFE6HwiVSgrCZkZqn5NAJqzWv5wMIXUzugLANUyAfuQVbshpL75ZPhA1ranLLX253T1w+tvf/9zz/ewFe+kRPVAj9sjS6nwIVBLzq04cNwRhUcDfcW3iEh0txkwKSBnC4ruteMbAeJ8o9yBn2eDooQsSOE8w/YxqyA7/rdQkIw6qpSkWuHpbGpOU+tV6Jx8oO3++9uvUMFG36RxtrmOb/2/qHjWY/g4e4U7KXHPVKJaXt2y61FyJRcjdBVnRppNjzU97W6HM4SQJrHvGfEEIb5Iu3AFAY4KUDvrtyUP25hIIH9D5NphpBvSivT3N+1dOo4aU2wKvGKkit2C6bfZTZ94ukQmOm7RrKDCpcKE0ShgIVQ8OAw/rBPDfzSauy4Ed2Lk50qB53huXBmJvUyluI+8XSs5WEYl0zZWQqUk/69bF87bZZDMjqqKyAEE8TucYKyyp1u0a9aYMiWivNvgiQFRrLCmT2+eatVwFrnN6HVJXmUdDMLZ83VkAE7q4jS+HuMDOuA5DNAVq3IiLCd7I=
+      secure: bL/pNn7N0/5UdnodVLH+tDc7hGMEqOxby2isAFK+e6Oix3to332MM03gUGlVC3JdRx3b7k++a63f/GexDQpygGbIbHHnXIk+K4W7UgET7gGokbqzIG1QggTzdldJISdN1Tfvhup/wkwkmzXbOORu8lkMFE6HwiVSgrCZkZqn5NAJqzWv5wMIXUzugLANUyAfuQVbshpL75ZPhA1ranLLX253T1w+tvf/9zz/ewFe+kRPVAj9sjS6nwIVBLzq04cNwRhUcDfcW3iEh0txkwKSBnC4ruteMbAeJ8o9yBn2eDooQsSOE8w/YxqyA7/rdQkIw6qpSkWuHpbGpOU+tV6Jx8oO3++9uvUMFG36RxtrmOb/2/qHjWY/g4e4U7KXHPVKJaXt2y61FyJRcjdBVnRppNjzU97W6HM4SQJrHvGfEEIb5Iu3AFAY4KUDvrtyUP25hIIH9D5NphpBvSivT3N+1dOo4aU2wKvGKkit2C6bfZTZ94ukQmOm7RrKDCpcKE0ShgIVQ8OAw/rBPDfzSauy4Ed2Lk50qB53huXBmJvUyluI+8XSs5WEYl0zZWQqUk/69bF87bZZDMjqqKyAEE8TucYKyyp1u0a9aYMiWivNvgiQFRrLCmT2+eatVwFrnN6HVJXmUdDMLZ83VkAE7q4jS+HuMDOuA5DNAVq3IiLCd7I=
     file:
       - "retext-readability.js"
       - "retext-readability.min.js"
     on:
       tags: true
+      node: '6.0'

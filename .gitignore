@@ -1,7 +1,6 @@
 .DS_Store
 *.log
-components/
-coverage/
 node_modules/
+coverage/
 retext-readability.js
 retext-readability.min.js

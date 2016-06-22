@@ -10,10 +10,7 @@
 
 /* eslint-env commonjs */
 
-/*
- * Dependencies.
- */
-
+/* Dependencies. */
 var daleChall = require('dale-chall/data/dale-chall.json');
 var spache = require('spache/data/spache.json');
 var visit = require('unist-util-visit');
@@ -27,20 +24,14 @@ var smog = require('smog-formula');
 var gunningFog = require('gunning-fog');
 var spacheFormula = require('spache-formula');
 
-/*
- * Constants.
- */
-
+/* Constants. */
 var DEFAULT_TARGET_AGE = 16;
 var WORDYNESS_THRESHOLD = 5;
 var SURENESS_THRESHOLD = 4 / 7;
 var SURENESS_THRESHOLD_VERY = 5 / 7;
 var SURENESS_THRESHOLD_DEFINITELY = 6 / 7;
 
-/*
- * Methods.
- */
-
+/* Methods. */
 var has = {}.hasOwnProperty;
 var floor = Math.floor;
 var round = Math.round;
@@ -192,10 +183,7 @@ function attacher(processor, options) {
                     }
                 }
 
-                /*
-                 * Find unique unfamiliar words for spache.
-                 */
-
+                /* Find unique unfamiliar words for spache. */
                 if (
                     spache.indexOf(caseless) !== -1 &&
                     !has.call(familiarWords, caseless)
@@ -204,10 +192,7 @@ function attacher(processor, options) {
                     familiarWordCount++;
                 }
 
-                /*
-                 * Find unique difficult words for dale-chall.
-                 */
-
+                /* Find unique difficult words for dale-chall. */
                 if (
                     daleChall.indexOf(caseless) !== -1 &&
                     !has.call(easyWord, caseless)
@@ -222,15 +207,15 @@ function attacher(processor, options) {
             }
 
             counts = {
-                'complexPolysillabicWord': complexPolysillabicWord,
-                'polysillabicWord': polysillabicWord,
-                'unfamiliarWord': wordCount - familiarWordCount,
-                'difficultWord': wordCount - easyWordCount,
-                'syllable': totalSyllables,
-                'sentence': 1,
-                'word': wordCount,
-                'character': letters,
-                'letter': letters
+                complexPolysillabicWord: complexPolysillabicWord,
+                polysillabicWord: polysillabicWord,
+                unfamiliarWord: wordCount - familiarWordCount,
+                difficultWord: wordCount - easyWordCount,
+                syllable: totalSyllables,
+                sentence: 1,
+                word: wordCount,
+                character: letters,
+                letter: letters
             };
 
             report(file, sentence, threshold, targetAge, [
@@ -250,8 +235,5 @@ function attacher(processor, options) {
     };
 }
 
-/*
- * Expose.
- */
-
+/* Expose. */
 module.exports = attacher;

@@ -1,9 +1,11 @@
 # retext-readability [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
 
-Check readability with **retext**.  Applies [Dale—Chall][dale-chall],
-[Automated Readability][automated-readability], [Coleman-Liau][coleman-liau],
-[Flesch][flesch], [Gunning-Fog][gunning-fog], [SMOG][smog],
-and [Spache][spache].
+<!--lint disable heading-increment list-item-spacing-->
+
+Check readability with [**retext**][retext].  Applies
+[Dale—Chall][dale-chall], [Automated Readability][automated-readability],
+[Coleman-Liau][coleman-liau], [Flesch][flesch], [Gunning-Fog][gunning-fog],
+[SMOG][smog], and [Spache][spache].
 
 ## Installation
 
@@ -13,8 +15,8 @@ and [Spache][spache].
 npm install retext-readability
 ```
 
-**retext-readability** is also available for [duo][duo-install], and as an
-AMD, CommonJS, and globals module, [uncompressed and compressed][releases].
+**retext-readability** is also available as an AMD, CommonJS, and
+globals module, [uncompressed and compressed][releases].
 
 ## Usage
 
@@ -72,34 +74,28 @@ Yields:
 
 ## API
 
-### `retext.use(readability, options?)`
+### `retext().use(readability[, options])`
 
 Detect possibly hard to read sentences.
 
-**Parameters**
+###### `options`
 
-*   `readability` — This plug-in.
-
-*   `options` (`Object`):
-
-    *   `age` (`number`, default: `16`)
-        — Target age group.  Note that the different algorithms
-        provide varying results, so your milage might vary with
-        people actually that age. :wink:
-
-    *   `threshold` (`number`, default: `4 / 7`)
-        — By default, 4 out of the 7 algorithms need to agree that
-        a sentence is higher that the target age and whether it should
-        be warned about.  This can be modified by passing in a new
-        threshold.
-
-    *   `minWords` (`number`, default: `5`)
-        — Minimum number of words a sentence should have when warning.
-        Most algorithms are designed to take a large sample of
-        sentences to detect the body’s reading level.  This plug-in,
-        however, works on a per-sentence basis.  This makes the results
-        quite skewered when said sentence has, for example, a few long
-        words or some unknown ones.
+*   `age` (`number`, default: `16`)
+    — Target age group.  Note that the different algorithms
+    provide varying results, so your milage might vary with
+    people actually that age. :wink:
+*   `threshold` (`number`, default: `4 / 7`)
+    — By default, 4 out of the 7 algorithms need to agree that
+    a sentence is higher that the target age and whether it should
+    be warned about.  This can be modified by passing in a new
+    threshold.
+*   `minWords` (`number`, default: `5`)
+    — Minimum number of words a sentence should have when warning.
+    Most algorithms are designed to take a large sample of
+    sentences to detect the body’s reading level.  This plug-in,
+    however, works on a per-sentence basis.  This makes the results
+    quite skewered when said sentence has, for example, a few long
+    words or some unknown ones.
 
 ## License
 
@@ -117,13 +113,13 @@ Detect possibly hard to read sentences.
 
 [npm-install]: https://docs.npmjs.com/cli/install
 
-[duo-install]: http://duojs.org/#getting-started
-
 [releases]: https://github.com/wooorm/retext-readability/releases
 
 [license]: LICENSE
 
 [author]: http://wooorm.com
+
+[retext]: https://github.com/wooorm/retext
 
 [dale-chall]: https://github.com/wooorm/dale-chall-formula
 

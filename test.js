@@ -9,19 +9,15 @@
 'use strict';
 
 /* eslint-env node */
+/* jscs:disable jsDoc */
+/* jscs:disable maximumLineLength */
 
-/*
- * Dependencies.
- */
-
+/* Dependencies. */
 var test = require('tape');
 var retext = require('retext');
 var readability = require('./');
 
-/*
- * Tests.
- */
-
+/* Tests. */
 test('readability', function (t) {
     retext()
         .use(readability)
@@ -54,7 +50,7 @@ test('readability', function (t) {
 
     retext()
         .use(readability, {
-            'threshold': 5 / 7
+            threshold: 5 / 7
         })
         .process([
             'Oberon, also designated Uranus IV, is the outermost ',
@@ -73,7 +69,7 @@ test('readability', function (t) {
 
     retext()
         .use(readability, {
-            'age': 18
+            age: 18
         })
         .process([
             'Oberon, also designated Uranus IV, is the outermost ',
@@ -92,7 +88,7 @@ test('readability', function (t) {
 
     retext()
         .use(readability, {
-            'age': 14
+            age: 14
         })
         .process([
             'Oberon, also designated Uranus IV, is the outermost ',
@@ -128,7 +124,7 @@ test('readability', function (t) {
 
     retext()
         .use(readability, {
-            'age': 14
+            age: 14
         })
         .process([
             'Oberon, also designated Uranus IV, is the outermost ',
@@ -160,7 +156,7 @@ test('readability', function (t) {
 
     retext()
         .use(readability, {
-            'minWords': 0
+            minWords: 0
         })
         .process('Honorificabilitudinitatibus.', function (err, file) {
             t.ifError(err, 'should not fail (#8)');

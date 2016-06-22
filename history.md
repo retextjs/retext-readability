@@ -2,6 +2,11 @@
 
 <!--lint disable no-multiple-toplevel-headings-->
 
+2.0.0 / 2016-06-22
+==================
+
+*   Refactor module ([`c5d493a`](https://github.com/wooorm/retext-readability/commit/c5d493a))
+
 1.3.0 / 2016-02-27
 ==================
 

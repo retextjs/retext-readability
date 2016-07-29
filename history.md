@@ -2,6 +2,11 @@
 
 <!--lint disable no-multiple-toplevel-headings-->
 
+3.0.1 / 2016-07-29
+==================
+
+*   Fix `readme.md` ([`0311580`](https://github.com/wooorm/retext-readability/commit/0311580))
+
 3.0.0 / 2016-07-29
 ==================
 

@@ -27,9 +27,7 @@ var spacheFormula = require('spache-formula');
 /* Constants. */
 var DEFAULT_TARGET_AGE = 16;
 var WORDYNESS_THRESHOLD = 5;
-var CONFIDENCE_THRESHOLD_LOW = 4 / 7;
-var CONFIDENCE_THRESHOLD_MODERATE = 5 / 7;
-var CONFIDENCE_THRESHOLD_HIGH = 6 / 7;
+var CONFIDENCE_THRESHOLD = 4 / 7;
 
 /* Methods. */
 var has = {}.hasOwnProperty;
@@ -87,36 +85,20 @@ function smogToAge(value) {
  *   for `node` according to several algorithms.
  */
 function report(file, node, threshold, target, results) {
-    var length = results.length;
-    var confidence = 0;
-    var index = -1;
-    var confidenceLevel;
     var message;
+    var failCount = results.filter(function (res) {
+        return res > target;
+    }).length;
+    var confidence = failCount + '/' + results.length;
 
-    while (++index < length) {
-        if (results[index] > target) {
-            confidence++;
-        }
-    }
-
-    confidence /= length;
-
-    if (confidence >= threshold) {
-        if (confidence >= CONFIDENCE_THRESHOLD_HIGH) {
-            confidenceLevel = 'high';
-        } else if (confidence >= CONFIDENCE_THRESHOLD_MODERATE) {
-            confidenceLevel = 'moderate';
-        } else {
-            confidenceLevel = 'low';
-        }
+    if (failCount / results.length >= threshold) {
 
         message = file.warn(
-            'Hard to read sentence (confidence: ' + confidenceLevel + ')',
+            'Hard to read sentence (confidence: ' + confidence + ')',
             node,
             'retext-readability'
         );
 
-        message.confidenceLevel = confidenceLevel;
         message.confidence = confidence;
         message.source = 'retext-readability';
     }
@@ -132,7 +114,7 @@ function report(file, node, threshold, target, results) {
 function attacher(processor, options) {
     var settings = options || {};
     var targetAge = settings.age || DEFAULT_TARGET_AGE;
-    var threshold = settings.threshold || CONFIDENCE_THRESHOLD_LOW;
+    var threshold = settings.threshold || CONFIDENCE_THRESHOLD;
     var minWords = settings.minWords;
 
     if (minWords === null || minWords === undefined) {

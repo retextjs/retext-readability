@@ -47,7 +47,7 @@ Yields:
 
 ```txt
 <stdin>
-   3:1-5:57  warning  Very hard to read sentence
+   3:1-5:57  warning  Hard to read sentence (confidence: moderate)     hard-to-read
 
 ⚠ 1 warning
 ```
@@ -66,8 +66,8 @@ Yields:
 
 ```txt
 <stdin>
-   1:1-1:23  warning  Quite hard to read sentence
-   3:1-5:57  warning  Definitely hard to read sentence
+   1:1-1:23  warning  Hard to read sentence (confidence: low)          hard-to-read
+   3:1-5:57  warning  Hard to read sentence (confidence: high)         hard-to-read
 
 ⚠ 2 warnings
 ```

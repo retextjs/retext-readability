@@ -27,9 +27,9 @@ var spacheFormula = require('spache-formula');
 /* Constants. */
 var DEFAULT_TARGET_AGE = 16;
 var WORDYNESS_THRESHOLD = 5;
-var SURENESS_THRESHOLD = 4 / 7;
-var SURENESS_THRESHOLD_VERY = 5 / 7;
-var SURENESS_THRESHOLD_DEFINITELY = 6 / 7;
+var CONFIDENCE_THRESHOLD_LOW = 4 / 7;
+var CONFIDENCE_THRESHOLD_MODERATE = 5 / 7;
+var CONFIDENCE_THRESHOLD_HIGH = 6 / 7;
 
 /* Methods. */
 var has = {}.hasOwnProperty;
@@ -88,31 +88,36 @@ function smogToAge(value) {
  */
 function report(file, node, threshold, target, results) {
     var length = results.length;
-    var result = 0;
+    var confidence = 0;
     var index = -1;
-    var level;
+    var confidenceLevel;
     var message;
 
     while (++index < length) {
         if (results[index] > target) {
-            result++;
+            confidence++;
         }
     }
 
-    result /= length;
+    confidence /= length;
 
-    if (result >= threshold) {
-        if (result >= SURENESS_THRESHOLD_DEFINITELY) {
-            level = 'Definitely';
-        } else if (result >= SURENESS_THRESHOLD_VERY) {
-            level = 'Very';
+    if (confidence >= threshold) {
+        if (confidence >= CONFIDENCE_THRESHOLD_HIGH) {
+            confidenceLevel = 'high';
+        } else if (confidence >= CONFIDENCE_THRESHOLD_MODERATE) {
+            confidenceLevel = 'moderate';
         } else {
-            level = 'Quite';
+            confidenceLevel = 'low';
         }
 
-        message = file.warn(level + ' hard to read sentence', node);
+        message = file.warn(
+            'Hard to read sentence (confidence: ' + confidenceLevel + ')',
+            node,
+            'retext-readability'
+        );
 
-        message.level = level.toLowerCase();
+        message.confidenceLevel = confidenceLevel;
+        message.confidence = confidence;
         message.source = 'retext-readability';
     }
 }
@@ -127,7 +132,7 @@ function report(file, node, threshold, target, results) {
 function attacher(processor, options) {
     var settings = options || {};
     var targetAge = settings.age || DEFAULT_TARGET_AGE;
-    var threshold = settings.threshold || SURENESS_THRESHOLD;
+    var threshold = settings.threshold || CONFIDENCE_THRESHOLD_LOW;
     var minWords = settings.minWords;
 
     if (minWords === null || minWords === undefined) {

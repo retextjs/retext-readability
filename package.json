@@ -44,6 +44,7 @@
     "dale-chall-formula": "^0.1.0",
     "flesch": "^0.1.0",
     "gunning-fog": "^0.1.0",
+    "has": "^1.0.1",
     "nlcst-to-string": "^2.0.0",
     "smog-formula": "^0.1.0",
     "spache": "^0.2.2",
@@ -53,29 +54,50 @@
   },
   "devDependencies": {
     "browserify": "^13.0.1",
-    "eslint": "^2.0.0",
     "esmangle": "^1.0.1",
     "istanbul": "^0.4.0",
-    "jscs": "^3.0.0",
-    "jscs-jsdoc": "^2.0.0",
     "remark-cli": "^1.0.0",
     "remark-comment-config": "^4.0.0",
     "remark-github": "^5.0.0",
     "remark-lint": "^4.0.0",
     "remark-validate-links": "^4.0.0",
     "retext": "^3.0.0",
-    "tape": "^4.0.0"
+    "tape": "^4.0.0",
+    "xo": "^0.16.0"
   },
   "scripts": {
     "build-md": "remark . --quiet --frail",
     "build-bundle": "browserify index.js --bare -s retextReadability > retext-readability.js",
     "build-mangle": "esmangle retext-readability.js > retext-readability.min.js",
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
-    "lint-api": "eslint .",
-    "lint-style": "jscs --reporter inline .",
-    "lint": "npm run lint-api && npm run lint-style",
+    "lint": "xo",
     "test-api": "node test.js",
     "test-coverage": "istanbul cover test.js",
     "test": "npm run build && npm run lint && npm run test-coverage"
+  },
+  "nyc": {
+    "check-coverage": true,
+    "lines": 100,
+    "functions": 100,
+    "branches": 100
+  },
+  "xo": {
+    "space": true,
+    "ignores": [
+      "retext-readability.js",
+      "retext-readability.min.js"
+    ]
+  },
+  "remarkConfig": {
+    "output": true,
+    "plugins": [
+      "comment-config",
+      "lint",
+      "github",
+      "validate-links"
+    ],
+    "settings": {
+      "bullet": "*"
+    }
   }
 }

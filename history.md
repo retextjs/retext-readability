@@ -2,6 +2,11 @@
 
 <!--lint disable no-multiple-toplevel-headings-->
 
+3.0.0 / 2016-07-29
+==================
+
+*   Reword confidence messages and add `ruleId` ([`670f50e`](https://github.com/wooorm/retext-readability/commit/670f50e))
+
 2.0.0 / 2016-06-22
 ==================
 

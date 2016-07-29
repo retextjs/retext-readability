@@ -27,9 +27,7 @@ var spacheFormula = require('spache-formula');
 /* Constants. */
 var DEFAULT_TARGET_AGE = 16;
 var WORDYNESS_THRESHOLD = 5;
-var SURENESS_THRESHOLD = 4 / 7;
-var SURENESS_THRESHOLD_VERY = 5 / 7;
-var SURENESS_THRESHOLD_DEFINITELY = 6 / 7;
+var CONFIDENCE_THRESHOLD = 4 / 7;
 
 /* Methods. */
 var has = {}.hasOwnProperty;
@@ -87,32 +85,21 @@ function smogToAge(value) {
  *   for `node` according to several algorithms.
  */
 function report(file, node, threshold, target, results) {
-    var length = results.length;
-    var result = 0;
-    var index = -1;
-    var level;
     var message;
+    var failCount = results.filter(function (res) {
+        return res > target;
+    }).length;
+    var confidence = failCount + '/' + results.length;
 
-    while (++index < length) {
-        if (results[index] > target) {
-            result++;
-        }
-    }
+    if (failCount / results.length >= threshold) {
 
-    result /= length;
+        message = file.warn(
+            'Hard to read sentence (confidence: ' + confidence + ')',
+            node,
+            'retext-readability'
+        );
 
-    if (result >= threshold) {
-        if (result >= SURENESS_THRESHOLD_DEFINITELY) {
-            level = 'Definitely';
-        } else if (result >= SURENESS_THRESHOLD_VERY) {
-            level = 'Very';
-        } else {
-            level = 'Quite';
-        }
-
-        message = file.warn(level + ' hard to read sentence', node);
-
-        message.level = level.toLowerCase();
+        message.confidence = confidence;
         message.source = 'retext-readability';
     }
 }
@@ -127,7 +114,7 @@ function report(file, node, threshold, target, results) {
 function attacher(processor, options) {
     var settings = options || {};
     var targetAge = settings.age || DEFAULT_TARGET_AGE;
-    var threshold = settings.threshold || SURENESS_THRESHOLD;
+    var threshold = settings.threshold || CONFIDENCE_THRESHOLD;
     var minWords = settings.minWords;
 
     if (minWords === null || minWords === undefined) {

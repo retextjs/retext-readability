@@ -43,8 +43,8 @@ test('readability', function (t) {
 
             t.deepEqual(
                 file.messages.map(String),
-                ['1:1-3:32: Quite hard to read sentence'],
-                'should warn when a sentence is quite hard to read'
+                ['1:1-3:32: Hard to read sentence (confidence: 4/7)'],
+                'should warn when low confidence that a sentence is hard to read'
             );
         });
 
@@ -100,7 +100,7 @@ test('readability', function (t) {
 
             t.deepEqual(
                 file.messages.map(String),
-                ['1:1-3:32: Very hard to read sentence'],
+                ['1:1-3:32: Hard to read sentence (confidence: 5/7)'],
                 'should support a given age (upping the warning)'
             );
         });
@@ -117,8 +117,8 @@ test('readability', function (t) {
 
             t.deepEqual(
                 file.messages.map(String),
-                ['1:1-3:46: Very hard to read sentence'],
-                'should warn when a sentence is very hard to read'
+                ['1:1-3:46: Hard to read sentence (confidence: 5/7)'],
+                'should warn when moderately confident that a sentence is hard to read'
             );
         });
 
@@ -137,8 +137,8 @@ test('readability', function (t) {
 
             t.deepEqual(
                 file.messages.map(String),
-                ['1:1-4:45: Definitely hard to read sentence'],
-                'should warn when a sentence is definitely hard to read'
+                ['1:1-4:45: Hard to read sentence (confidence: 6/7)'],
+                'should warn when highly confident that a sentence is hard to read'
             );
         });
 
@@ -163,7 +163,7 @@ test('readability', function (t) {
 
             t.deepEqual(
                 file.messages.map(String),
-                ['1:1-1:29: Quite hard to read sentence'],
+                ['1:1-1:29: Hard to read sentence (confidence: 4/7)'],
                 'should support `minWords` (config)'
             );
         });

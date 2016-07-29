@@ -26,28 +26,29 @@ var readability = require('retext-readability');
 var report = require('vfile-reporter');
 
 var doc = [
-    'The cat sat on the mat',
-    '',
-    'The constellation also contains an isolated neutron ',
-    'star—Calvera—and H1504+65, the hottest white dwarf yet ',
-    'discovered, with a surface temperature of 200,000 kelvin',
-    ''
+  'The cat sat on the mat',
+  '',
+  'The constellation also contains an isolated neutron ',
+  'star—Calvera—and H1504+65, the hottest white dwarf yet ',
+  'discovered, with a surface temperature of 200,000 kelvin',
+  ''
 ].join('\n');
 ```
 
 The defaults is to a target an age of 16:
 
 ```js
-retext().use(readability).process(doc, function (err, file) {
-    console.log(report(file));
-});
+retext()
+  .use(readability)
+  .process(doc, function (err, file) {
+    console.log(report(err || file));
+  });
 ```
 
 Yields:
 
 ```txt
-<stdin>
-   3:1-5:57  warning  Hard to read sentence (confidence: 5/7)          hard-to-read
+   3:1-5:57  warning  Hard to read sentence (confidence: 4/7)  retext-readability
 
 ⚠ 1 warning
 ```
@@ -55,21 +56,20 @@ Yields:
 ...but ages can be set, for example, to 8:
 
 ```js
-retext().use(readability, {
-    'age': 8
-}).process(doc, function (err, file) {
-    console.log(report(file));
-});
+retext()
+  .use(readability, {age: 6})
+  .process(doc, function (err, file) {
+    console.log(report(err || file));
+  });
 ```
 
 Yields:
 
 ```txt
-<stdin>
-   1:1-1:23  warning  Hard to read sentence (confidence: 4/7)          hard-to-read
-   3:1-5:57  warning  Hard to read sentence (confidence: 6/7)          hard-to-read
+   1:1-1:23  warning  Hard to read sentence (confidence: 4/7)  retext-readability
+   3:1-5:57  warning  Hard to read sentence (confidence: 7/7)  retext-readability
 
-⚠ 2 warnings
+⚠ 1 warning
 ```
 
 ## API
@@ -82,11 +82,11 @@ Detect possibly hard to read sentences.
 
 *   `age` (`number`, default: `16`)
     — Target age group.  Note that the different algorithms
-    provide varying results, so your milage might vary with
+    provide varying results, so your milage may vary with
     people actually that age. :wink:
 *   `threshold` (`number`, default: `4 / 7`)
     — By default, 4 out of the 7 algorithms need to agree that
-    a sentence is higher that the target age and whether it should
+    a sentence is higher than the target age and whether it should
     be warned about.  This can be modified by passing in a new
     threshold.
 *   `minWords` (`number`, default: `5`)

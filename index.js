@@ -77,49 +77,38 @@ function attacher(processor, options) {
       var caseless;
 
       visit(sentence, 'WordNode', function (node) {
-        var syllables;
-        var value;
-        var head;
+        var value = toString(node);
+        var syllables = syllable(value);
 
         wordCount++;
-        value = toString(node);
-        head = value.charAt(0);
-        syllables = syllable(value);
-
         totalSyllables += syllables;
         letters += value.length;
         caseless = value.toLowerCase();
 
         /**
          * Count complex words for gunning-fog based on
-         * whether they’re have three or more syllables
-         * and whether they are not proper nouns.  The
-         * last is checkt a little simple, so this
+         * whether they have three or more syllables
+         * and whether they aren’t proper nouns.  The
+         * last is checked a little simple, so this
          * index might be over-eager.
          */
 
         if (syllables >= 3) {
           polysillabicWord++;
 
-          if (head !== head.toUpperCase()) {
+          if (value.charCodeAt(0) === caseless.charCodeAt(0)) {
             complexPolysillabicWord++;
           }
         }
 
         /* Find unique unfamiliar words for spache. */
-        if (
-          spache.indexOf(caseless) !== -1 &&
-          !has(familiarWords, caseless)
-        ) {
+        if (spache.indexOf(caseless) !== -1 && !has(familiarWords, caseless)) {
           familiarWords[caseless] = true;
           familiarWordCount++;
         }
 
         /* Find unique difficult words for dale-chall. */
-        if (
-          daleChall.indexOf(caseless) !== -1 &&
-          !has(easyWord, caseless)
-        ) {
+        if (daleChall.indexOf(caseless) !== -1 && !has(easyWord, caseless)) {
           easyWord[caseless] = true;
           easyWordCount++;
         }
@@ -210,8 +199,8 @@ function report(file, node, threshold, target, results) {
   var length = results.length;
   var index = -1;
   var failCount = 0;
-  var message;
   var confidence;
+  var message;
 
   while (++index < length) {
     if (results[index] > target) {
@@ -219,8 +208,8 @@ function report(file, node, threshold, target, results) {
     }
   }
 
-  if (failCount / results.length >= threshold) {
-    confidence = failCount + '/' + results.length;
+  if (failCount / length >= threshold) {
+    confidence = failCount + '/' + length;
 
     message = file.warn(
       'Hard to read sentence (confidence: ' + confidence + ')',

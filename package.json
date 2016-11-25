@@ -25,17 +25,14 @@
     "retext",
     "plugin"
   ],
-  "files": [
-    "index.js"
-  ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/wooorm/retext-readability.git"
-  },
+  "repository": "https://github.com/wooorm/retext-readability",
   "bugs": "https://github.com/wooorm/retext-readability/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
     "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
+  ],
+  "files": [
+    "index.js"
   ],
   "dependencies": {
     "automated-readability": "^1.0.0",
@@ -81,8 +78,7 @@
   "xo": {
     "space": true,
     "ignores": [
-      "retext-readability.js",
-      "retext-readability.min.js"
+      "retext-readability.js"
     ]
   },
   "remarkConfig": {

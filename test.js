@@ -1,19 +1,9 @@
-/**
- * @author Titus Wormer
- * @copyright 2016 Titus Wormer
- * @license MIT
- * @module retext:readability
- * @fileoverview Test suite for `retext-readability`.
- */
-
 'use strict';
 
-/* Dependencies. */
 var test = require('tape');
 var retext = require('retext');
 var readability = require('./');
 
-/* Tests. */
 test('readability', function (t) {
   retext()
     .use(readability)

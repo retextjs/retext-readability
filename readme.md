@@ -30,7 +30,7 @@ var doc = [
 ].join('\n');
 ```
 
-The defaults is to a target an age of 16:
+By default, the target age is 16:
 
 ```js
 retext()

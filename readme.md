@@ -1,7 +1,5 @@
 # retext-readability [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
 
-<!--lint disable heading-increment list-item-spacing-->
-
 Check readability with [**retext**][retext].  Applies
 [Dale—Chall][dale-chall], [Automated Readability][automated-readability],
 [Coleman-Liau][coleman-liau], [Flesch][flesch], [Gunning-Fog][gunning-fog],
@@ -9,14 +7,11 @@ Check readability with [**retext**][retext].  Applies
 
 ## Installation
 
-[npm][npm-install]:
+[npm][]:
 
 ```bash
 npm install retext-readability
 ```
-
-**retext-readability** is also available as an AMD, CommonJS, and
-globals module, [uncompressed and compressed][releases].
 
 ## Usage
 
@@ -111,9 +106,7 @@ Detect possibly hard to read sentences.
 
 [codecov]: https://codecov.io/github/wooorm/retext-readability
 
-[npm-install]: https://docs.npmjs.com/cli/install
-
-[releases]: https://github.com/wooorm/retext-readability/releases
+[npm]: https://docs.npmjs.com/cli/install
 
 [license]: LICENSE
 

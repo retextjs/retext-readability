@@ -1,5 +1,6 @@
 .DS_Store
 *.log
+.nyc_output/
 node_modules/
 coverage/
 retext-readability.js

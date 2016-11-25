@@ -40,39 +40,36 @@
   "dependencies": {
     "automated-readability": "^1.0.0",
     "coleman-liau": "^1.0.0",
-    "dale-chall": "^0.2.2",
+    "dale-chall": "^1.0.0",
     "dale-chall-formula": "^1.0.0",
     "flesch": "^1.0.0",
     "gunning-fog": "^1.0.0",
     "has": "^1.0.1",
     "nlcst-to-string": "^2.0.0",
     "smog-formula": "^1.0.0",
-    "spache": "^0.2.2",
+    "spache": "^1.1.0",
     "spache-formula": "^1.0.0",
-    "syllable": "^0.1.4",
+    "syllable": "^1.0.0",
     "unist-util-visit": "^1.0.0"
   },
   "devDependencies": {
     "browserify": "^13.0.1",
     "esmangle": "^1.0.1",
-    "istanbul": "^0.4.0",
-    "remark-cli": "^1.0.0",
-    "remark-comment-config": "^4.0.0",
-    "remark-github": "^5.0.0",
-    "remark-lint": "^4.0.0",
-    "remark-validate-links": "^4.0.0",
-    "retext": "^3.0.0",
+    "nyc": "^10.0.0",
+    "remark-cli": "^2.1.0",
+    "remark-preset-wooorm": "^1.0.0",
+    "retext": "^4.0.0",
     "tape": "^4.0.0",
-    "xo": "^0.16.0"
+    "xo": "^0.17.1"
   },
   "scripts": {
-    "build-md": "remark . --quiet --frail",
+    "build-md": "remark . -qfo",
     "build-bundle": "browserify index.js --bare -s retextReadability > retext-readability.js",
     "build-mangle": "esmangle retext-readability.js > retext-readability.min.js",
     "build": "npm run build-md && npm run build-bundle && npm run build-mangle",
     "lint": "xo",
     "test-api": "node test.js",
-    "test-coverage": "istanbul cover test.js",
+    "test-coverage": "nyc --reporter lcov tape test.js",
     "test": "npm run build && npm run lint && npm run test-coverage"
   },
   "nyc": {
@@ -89,15 +86,6 @@
     ]
   },
   "remarkConfig": {
-    "output": true,
-    "plugins": [
-      "comment-config",
-      "lint",
-      "github",
-      "validate-links"
-    ],
-    "settings": {
-      "bullet": "*"
-    }
+    "presets": "wooorm"
   }
 }

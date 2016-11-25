@@ -83,7 +83,7 @@ Detect possibly hard to read sentences.
 *   `age` (`number`, default: `16`)
     — Target age group.  Note that the different algorithms
     provide varying results, so your milage may vary with
-    people actually that age. :wink:
+    people actually that age.  :wink:
 *   `threshold` (`number`, default: `4 / 7`)
     — By default, 4 out of the 7 algorithms need to agree that
     a sentence is higher than the target age and whether it should

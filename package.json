@@ -46,7 +46,7 @@
     "smog-formula": "^1.0.0",
     "spache": "^1.1.0",
     "spache-formula": "^1.0.0",
-    "syllable": "^1.0.0",
+    "syllable": "^2.0.0",
     "unist-util-visit": "^1.0.0"
   },
   "devDependencies": {

@@ -29,7 +29,10 @@
   "bugs": "https://github.com/wooorm/retext-readability/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
-    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)"
+    "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
+    "Duncan Beaton <dunckr@gmail.com>",
+    "Josiah Sprague <josiah.sprague@gmail.com>",
+    "Sylvan Swierkosz <sswierkosz@gmail.com>"
   ],
   "files": [
     "index.js"

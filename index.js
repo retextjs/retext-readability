@@ -165,5 +165,7 @@ function report(file, node, threshold, target, results) {
     message = file.warn('Hard to read sentence (confidence: ' + confidence + ')', node, SOURCE);
     message.confidence = confidence;
     message.source = SOURCE;
+    message.actual = toString(node);
+    message.expected = null;
   }
 }

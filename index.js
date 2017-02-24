@@ -14,7 +14,7 @@ var smog = require('smog-formula');
 var gunningFog = require('gunning-fog');
 var spacheFormula = require('spache-formula');
 
-module.exports = attacher;
+module.exports = readability;
 
 var SOURCE = 'retext-readability';
 var DEFAULT_TARGET_AGE = 16;
@@ -26,7 +26,7 @@ var round = Math.round;
 var ceil = Math.ceil;
 var sqrt = Math.sqrt;
 
-function attacher(processor, options) {
+function readability(options) {
   var settings = options || {};
   var targetAge = settings.age || DEFAULT_TARGET_AGE;
   var threshold = settings.threshold || DEFAULT_THRESHOLD;

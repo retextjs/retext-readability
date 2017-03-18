@@ -84,8 +84,6 @@ function readability(options) {
         gradeToAge(spacheFormula(counts))
       ]);
 
-      return;
-
       function visitor(node) {
         var value = toString(node);
         var syllables = syllable(value);

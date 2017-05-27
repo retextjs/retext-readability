@@ -5,6 +5,9 @@ Check readability with [**retext**][retext].  Applies
 [Coleman-Liau][coleman-liau], [Flesch][flesch], [Gunning-Fog][gunning-fog],
 [SMOG][smog], and [Spache][spache].
 
+> Tip: I also made an online editable demo, similar to this project:
+> [wooorm.com/readability](http://wooorm.com/readability/).
+
 ## Installation
 
 [npm][]:

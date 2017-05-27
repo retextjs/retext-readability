@@ -25,7 +25,7 @@
     "retext",
     "plugin"
   ],
-  "repository": "https://github.com/wooorm/retext-readability",
+  "repository": "wooorm/retext-readability",
   "bugs": "https://github.com/wooorm/retext-readability/issues",
   "author": "Titus Wormer <tituswormer@gmail.com> (http://wooorm.com)",
   "contributors": [
@@ -86,6 +86,8 @@
     ]
   },
   "remarkConfig": {
-    "plugins": ["preset-wooorm"]
+    "plugins": [
+      "preset-wooorm"
+    ]
   }
 }

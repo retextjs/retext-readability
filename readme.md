@@ -81,24 +81,25 @@ example.txt
 
 Detect possibly hard to read sentences.
 
-###### `options`
+###### `options.age`
 
-*   `age` (`number`, default: `16`)
-    — Target age group.  Note that the different algorithms
-    provide varying results, so your milage may vary with
-    people actually that age.  :wink:
-*   `threshold` (`number`, default: `4 / 7`)
-    — By default, 4 out of the 7 algorithms need to agree that
-    a sentence is higher than the target age and whether it should
-    be warned about.  This can be modified by passing in a new
-    threshold.
-*   `minWords` (`number`, default: `5`)
-    — Minimum number of words a sentence should have when warning.
-    Most algorithms are designed to take a large sample of
-    sentences to detect the body’s reading level.  This plug-in,
-    however, works on a per-sentence basis.  This makes the results
-    quite skewered when said sentence has, for example, a few long
-    words or some unknown ones.
+`number`, default: `16` — Target age group.  Note that the different
+algorithms provide varying results, so your milage may vary with people
+actually that age.  :wink:
+
+###### `options.threshold`
+
+`number`, default: `4 / 7` — By default, 4 out of the 7 algorithms need
+to agree that a sentence is higher than the target age and whether it
+should be warned about.  This can be modified by passing in a new threshold.
+
+###### `options.minWords`
+
+`number`, default: `5` — Minimum number of words a sentence should have when
+warning.  Most algorithms are designed to take a large sample of sentences
+to detect the body’s reading level.  This plug-in, however, works on a
+per-sentence basis.  This makes the results quite skewered when said sentence
+has, for example, a few long words or some unknown ones.
 
 ## License
 

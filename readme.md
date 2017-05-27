@@ -101,6 +101,13 @@ to detect the body’s reading level.  This plug-in, however, works on a
 per-sentence basis.  This makes the results quite skewered when said sentence
 has, for example, a few long words or some unknown ones.
 
+## Related
+
+*   [`retext-syntax-mentions`](https://github.com/wooorm/retext-syntax-mentions)
+    — Classify [**@mentions**](https://github.com/blog/821) as syntax
+*   [`retext-simplify`](https://github.com/wooorm/retext-simplify)
+    — Check phrases for simpler alternatives
+
 ## License
 
 [MIT][license] © [Titus Wormer][author]

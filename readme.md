@@ -56,7 +56,7 @@ example.txt
 ⚠ 1 warning
 ```
 
-By default, the target age is 16, but ages can be set, for example, to 8:
+By default, the target age is 16, but ages can be set, for example, to 6:
 
 ```diff
    .use(english)

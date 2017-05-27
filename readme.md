@@ -15,56 +15,61 @@ npm install retext-readability
 
 ## Usage
 
-```js
-var retext = require('retext');
-var readability = require('retext-readability');
+Say we have the following file, `example.txt`:
+
+```text
+The cat sat on the mat
+
+The constellation also contains an isolated neutron
+star—Calvera—and H1504+65, the hottest white dwarf yet
+discovered, with a surface temperature of 200,000 kelvin
+```
+
+And our script, `example.js`, looks like this:
+
+```javascript
+var vfile = require('to-vfile');
 var report = require('vfile-reporter');
+var unified = require('unified');
+var english = require('retext-english');
+var stringify = require('retext-stringify');
+var readability = require('retext-readability');
 
-var doc = [
-  'The cat sat on the mat',
-  '',
-  'The constellation also contains an isolated neutron ',
-  'star—Calvera—and H1504+65, the hottest white dwarf yet ',
-  'discovered, with a surface temperature of 200,000 kelvin',
-  ''
-].join('\n');
-```
-
-By default, the target age is 16:
-
-```js
-retext()
+unified()
+  .use(english)
   .use(readability)
-  .process(doc, function (err, file) {
-    console.log(report(err || file));
+  .use(stringify)
+  .process(vfile.readSync('example.txt'), function (err, file) {
+    console.error(report(err || file));
   });
 ```
 
-Yields:
+Now, running `node example` yields:
 
-```txt
-   3:1-5:57  warning  Hard to read sentence (confidence: 4/7)  retext-readability
+```text
+example.txt
+  3:1-5:57  warning  Hard to read sentence (confidence: 4/7)  retext-readability  retext-readability
 
 ⚠ 1 warning
 ```
 
-...but ages can be set, for example, to 8:
+By default, the target age is 16, but ages can be set, for example, to 8:
 
-```js
-retext()
-  .use(readability, {age: 6})
-  .process(doc, function (err, file) {
-    console.log(report(err || file));
-  });
+```diff
+   .use(english)
+-  .use(readability)
++  .use(readability, {age: 6})
+   .use(stringify)
 ```
 
-Yields:
+Now, running `node example` once more yields:
 
 ```txt
-   1:1-1:23  warning  Hard to read sentence (confidence: 4/7)  retext-readability
-   3:1-5:57  warning  Hard to read sentence (confidence: 7/7)  retext-readability
+example.txt
+  1:1-1:23  warning  Hard to read sentence (confidence: 4/7)  retext-readability  retext-readability
+  3:1-5:57  warning  Hard to read sentence (confidence: 7/7)  retext-readability  retext-readability
 
-⚠ 1 warning
+⚠ 2 warnings
 ```
 
 ## API

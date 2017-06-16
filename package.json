@@ -44,7 +44,6 @@
     "dale-chall-formula": "^1.0.0",
     "flesch": "^1.0.0",
     "gunning-fog": "^1.0.0",
-    "has": "^1.0.1",
     "nlcst-to-string": "^2.0.0",
     "smog-formula": "^1.0.0",
     "spache": "^1.1.0",

@@ -1,6 +1,5 @@
 'use strict';
 
-var has = require('has');
 var visit = require('unist-util-visit');
 var toString = require('nlcst-to-string');
 var syllable = require('syllable');
@@ -21,6 +20,7 @@ var DEFAULT_TARGET_AGE = 16;
 var WORDYNESS_THRESHOLD = 5;
 var DEFAULT_THRESHOLD = 4 / 7;
 
+var own = {}.hasOwnProperty;
 var floor = Math.floor;
 var round = Math.round;
 var ceil = Math.ceil;
@@ -107,13 +107,13 @@ function readability(options) {
         }
 
         /* Find unique unfamiliar words for spache. */
-        if (spache.indexOf(caseless) !== -1 && !has(familiarWords, caseless)) {
+        if (spache.indexOf(caseless) !== -1 && !own.call(familiarWords, caseless)) {
           familiarWords[caseless] = true;
           familiarWordCount++;
         }
 
         /* Find unique difficult words for dale-chall. */
-        if (daleChall.indexOf(caseless) !== -1 && !has(easyWord, caseless)) {
+        if (daleChall.indexOf(caseless) !== -1 && !own.call(easyWord, caseless)) {
           easyWord[caseless] = true;
           easyWordCount++;
         }

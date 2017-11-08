@@ -132,16 +132,16 @@ has, for example, a few long words or some unknown ones.
 
 [retext]: https://github.com/wooorm/retext
 
-[dale-chall]: https://github.com/wooorm/dale-chall-formula
+[dale-chall]: https://github.com/words/dale-chall-formula
 
-[automated-readability]: https://github.com/wooorm/automated-readability
+[automated-readability]: https://github.com/words/automated-readability
 
-[coleman-liau]: https://github.com/wooorm/coleman-liau
+[coleman-liau]: https://github.com/words/coleman-liau
 
-[flesch]: https://github.com/wooorm/flesch
+[flesch]: https://github.com/words/flesch
 
-[gunning-fog]: https://github.com/wooorm/gunning-fog
+[gunning-fog]: https://github.com/words/gunning-fog
 
-[spache]: https://github.com/wooorm/spache-formula
+[spache]: https://github.com/words/spache-formula
 
-[smog]: https://github.com/wooorm/smog-formula
+[smog]: https://github.com/words/smog-formula

@@ -103,11 +103,11 @@ has, for example, a few long words or some unknown ones.
 
 ## Related
 
-*   [`retext-syntax-mentions`](https://github.com/wooorm/retext-syntax-mentions)
+*   [`retext-syntax-mentions`](https://github.com/retextjs/retext-syntax-mentions)
     — Classify [**@mentions**](https://github.com/blog/821) as syntax
-*   [`retext-syntax-urls`](https://github.com/wooorm/retext-syntax-urls)
+*   [`retext-syntax-urls`](https://github.com/retextjs/retext-syntax-urls)
     — Classify URLs anf filepaths as syntax
-*   [`retext-simplify`](https://github.com/wooorm/retext-simplify)
+*   [`retext-simplify`](https://github.com/retextjs/retext-simplify)
     — Check phrases for simpler alternatives
 
 ## License
@@ -116,13 +116,13 @@ has, for example, a few long words or some unknown ones.
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/wooorm/retext-readability.svg
+[travis-badge]: https://img.shields.io/travis/retextjs/retext-readability.svg
 
-[travis]: https://travis-ci.org/wooorm/retext-readability
+[travis]: https://travis-ci.org/retextjs/retext-readability
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/wooorm/retext-readability.svg
+[codecov-badge]: https://img.shields.io/codecov/c/github/retextjs/retext-readability.svg
 
-[codecov]: https://codecov.io/github/wooorm/retext-readability
+[codecov]: https://codecov.io/github/retextjs/retext-readability
 
 [npm]: https://docs.npmjs.com/cli/install
 
@@ -130,7 +130,7 @@ has, for example, a few long words or some unknown ones.
 
 [author]: http://wooorm.com
 
-[retext]: https://github.com/wooorm/retext
+[retext]: https://github.com/retextjs/retext
 
 [dale-chall]: https://github.com/words/dale-chall-formula
 

@@ -106,7 +106,7 @@ has, for example, a few long words or some unknown ones.
 *   [`retext-syntax-mentions`](https://github.com/retextjs/retext-syntax-mentions)
     — Classify [**@mentions**](https://github.com/blog/821) as syntax
 *   [`retext-syntax-urls`](https://github.com/retextjs/retext-syntax-urls)
-    — Classify URLs anf filepaths as syntax
+    — Classify URLs and filepaths as syntax
 *   [`retext-simplify`](https://github.com/retextjs/retext-simplify)
     — Check phrases for simpler alternatives
 

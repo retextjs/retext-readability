@@ -6,7 +6,7 @@ Check readability with [**retext**][retext].  Applies
 [SMOG][smog], and [Spache][spache].
 
 > Tip: I also made an online editable demo, similar to this project:
-> [wooorm.com/readability](http://wooorm.com/readability/).
+> [wooorm.com/readability](https://wooorm.com/readability/).
 
 ## Installation
 
@@ -135,7 +135,7 @@ repository, organisation, or community you agree to abide by its terms.
 
 [license]: license
 
-[author]: http://wooorm.com
+[author]: https://wooorm.com
 
 [retext]: https://github.com/retextjs/retext
 

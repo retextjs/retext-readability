@@ -2,7 +2,7 @@
 
 var test = require('tape');
 var retext = require('retext');
-var readability = require('./');
+var readability = require('.');
 
 test('readability', function (t) {
   retext()
@@ -11,9 +11,9 @@ test('readability', function (t) {
       t.ifError(err, 'should not fail (#1)');
 
       t.deepEqual(
-          file.messages.map(String),
-          [],
-          'should not warn when a sentence is easy to read'
+        file.messages.map(String),
+        [],
+        'should not warn when a sentence is easy to read'
       );
     });
 

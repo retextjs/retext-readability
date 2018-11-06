@@ -1,4 +1,4 @@
-# retext-readability [![Build Status][travis-badge]][travis] [![Coverage Status][codecov-badge]][codecov]
+# retext-readability [![Build][build-badge]][build] [![Coverage][coverage-badge]][coverage] [![Downloads][downloads-badge]][downloads] [![Chat][chat-badge]][chat]
 
 Check readability with [**retext**][retext].  Applies
 [Dale—Chall][dale-chall], [Automated Readability][automated-readability],
@@ -112,7 +112,8 @@ has, for example, a few long words or some unknown ones.
 
 ## Contribute
 
-See [`contributing.md` in `retextjs/retext`][contributing] for ways to get started.
+See [`contributing.md` in `retextjs/retext`][contributing] for ways to get
+started.
 
 This organisation has a [Code of Conduct][coc].  By interacting with this
 repository, organisation, or community you agree to abide by its terms.
@@ -123,13 +124,21 @@ repository, organisation, or community you agree to abide by its terms.
 
 <!-- Definitions -->
 
-[travis-badge]: https://img.shields.io/travis/retextjs/retext-readability.svg
+[build-badge]: https://img.shields.io/travis/retextjs/retext-readability.svg
 
-[travis]: https://travis-ci.org/retextjs/retext-readability
+[build]: https://travis-ci.org/retextjs/retext-readability
 
-[codecov-badge]: https://img.shields.io/codecov/c/github/retextjs/retext-readability.svg
+[coverage-badge]: https://img.shields.io/codecov/c/github/retextjs/retext-readability.svg
 
-[codecov]: https://codecov.io/github/retextjs/retext-readability
+[coverage]: https://codecov.io/github/retextjs/retext-readability
+
+[downloads-badge]: https://img.shields.io/npm/dm/retext-readability.svg
+
+[downloads]: https://www.npmjs.com/package/retext-readability
+
+[chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
+
+[chat]: https://spectrum.chat/unified/retext
 
 [npm]: https://docs.npmjs.com/cli/install
 

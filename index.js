@@ -56,31 +56,31 @@ function readability(options) {
 
       visit(sentence, 'WordNode', visitor)
 
-      if (wordCount < minWords) {
-        return
+      if (wordCount >= minWords) {
+        counts = {
+          complexPolysillabicWord: complexPolysillabicWord,
+          polysillabicWord: polysillabicWord,
+          unfamiliarWord: wordCount - familiarWordCount,
+          difficultWord: wordCount - easyWordCount,
+          syllable: totalSyllables,
+          sentence: 1,
+          word: wordCount,
+          character: letters,
+          letter: letters
+        }
+
+        report(file, sentence, threshold, targetAge, [
+          gradeToAge(daleChallFormula.gradeLevel(daleChallFormula(counts))[1]),
+          gradeToAge(ari(counts)),
+          gradeToAge(colemanLiau(counts)),
+          fleschToAge(flesch(counts)),
+          smogToAge(smog(counts)),
+          gradeToAge(gunningFog(counts)),
+          gradeToAge(spacheFormula(counts))
+        ])
       }
 
-      counts = {
-        complexPolysillabicWord: complexPolysillabicWord,
-        polysillabicWord: polysillabicWord,
-        unfamiliarWord: wordCount - familiarWordCount,
-        difficultWord: wordCount - easyWordCount,
-        syllable: totalSyllables,
-        sentence: 1,
-        word: wordCount,
-        character: letters,
-        letter: letters
-      }
-
-      report(file, sentence, threshold, targetAge, [
-        gradeToAge(daleChallFormula.gradeLevel(daleChallFormula(counts))[1]),
-        gradeToAge(ari(counts)),
-        gradeToAge(colemanLiau(counts)),
-        fleschToAge(flesch(counts)),
-        smogToAge(smog(counts)),
-        gradeToAge(gunningFog(counts)),
-        gradeToAge(spacheFormula(counts))
-      ])
+      return visit.SKIP
 
       function visitor(node) {
         var value = toString(node)

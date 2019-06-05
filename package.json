@@ -1,9 +1,12 @@
 {
   "name": "retext-readability",
   "version": "4.2.1",
-  "description": "Check readability with retext",
+  "description": "retext plugin to check readability",
   "license": "MIT",
   "keywords": [
+    "unified",
+    "retext",
+    "plugin",
     "revised",
     "spache",
     "robert",
@@ -21,9 +24,7 @@
     "ease",
     "automated",
     "readability",
-    "formula",
-    "retext",
-    "plugin"
+    "formula"
   ],
   "repository": "retextjs/retext-readability",
   "bugs": "https://github.com/retextjs/retext-readability/issues",

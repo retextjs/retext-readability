@@ -142,9 +142,8 @@ function smogToAge(value) {
   return ceil(sqrt(value) + 2.5)
 }
 
-/* eslint-disable max-params */
-
 // Report the `results` if they’re reliably too hard for the `target` age.
+// eslint-disable-next-line max-params
 function report(file, node, threshold, target, results) {
   var length = results.length
   var index = -1

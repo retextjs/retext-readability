@@ -160,7 +160,7 @@ function report(file, node, threshold, target, results) {
   if (failCount / length >= threshold) {
     confidence = failCount + '/' + length
 
-    message = file.warn(
+    message = file.message(
       'Hard to read sentence (confidence: ' + confidence + ')',
       node,
       source

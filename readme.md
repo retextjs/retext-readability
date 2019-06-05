@@ -1,26 +1,34 @@
-# retext-readability [![Build][build-badge]][build] [![Coverage][coverage-badge]][coverage] [![Downloads][downloads-badge]][downloads] [![Chat][chat-badge]][chat]
+# retext-readability
 
-Check readability with [**retext**][retext].  Applies
-[Dale—Chall][dale-chall], [Automated Readability][automated-readability],
-[Coleman-Liau][coleman-liau], [Flesch][flesch], [Gunning-Fog][gunning-fog],
-[SMOG][smog], and [Spache][spache].
+[![Build][build-badge]][build]
+[![Coverage][coverage-badge]][coverage]
+[![Downloads][downloads-badge]][downloads]
+[![Size][size-badge]][size]
+[![Sponsors][sponsors-badge]][collective]
+[![Backers][backers-badge]][collective]
+[![Chat][chat-badge]][chat]
+
+[**retext**][retext] plugin to check readability.
+Applies [Dale—Chall][dale-chall],
+[Automated Readability][automated-readability], [Coleman-Liau][], [Flesch][],
+[Gunning-Fog][], [SMOG][], and [Spache][].
 
 > Tip: I also made an online editable demo, similar to this project:
-> [wooorm.com/readability](https://wooorm.com/readability/).
+> [`wooorm.com/readability`](https://wooorm.com/readability/).
 
-## Installation
+## Install
 
 [npm][]:
 
-```bash
+```sh
 npm install retext-readability
 ```
 
-## Usage
+## Use
 
 Say we have the following file, `example.txt`:
 
-```text
+```txt
 The cat sat on the mat
 
 The constellation also contains an isolated neutron
@@ -28,9 +36,9 @@ star—Calvera—and H1504+65, the hottest white dwarf yet
 discovered, with a surface temperature of 200,000 kelvin
 ```
 
-And our script, `example.js`, looks like this:
+…and our script, `example.js`, looks like this:
 
-```javascript
+```js
 var vfile = require('to-vfile')
 var report = require('vfile-reporter')
 var unified = require('unified')
@@ -49,7 +57,7 @@ unified()
 
 Now, running `node example` yields:
 
-```text
+```txt
 example.txt
   3:1-5:57  warning  Hard to read sentence (confidence: 4/7)  retext-readability  retext-readability
 
@@ -83,23 +91,24 @@ Detect possibly hard to read sentences.
 
 ###### `options.age`
 
-`number`, default: `16` — Target age group.  Note that the different
-algorithms provide varying results, so your milage may vary with people
-actually that age.  :wink:
+Target age group (`number`, default: `16`).
+Note that the different algorithms provide varying results, so your milage may
+vary with people actually that age.  :wink:
 
 ###### `options.threshold`
 
-`number`, default: `4 / 7` — By default, 4 out of the 7 algorithms need
-to agree that a sentence is higher than the target age and whether it
-should be warned about.  This can be modified by passing in a new threshold.
+Number of algorithms that need to agree (`number`, default: `4 / 7`)
+By default, 4 out of the 7 algorithms need to agree that a sentence is hard to
+read for the target age, in which case it’s warned about.
 
 ###### `options.minWords`
 
-`number`, default: `5` — Minimum number of words a sentence should have when
-warning.  Most algorithms are designed to take a large sample of sentences
-to detect the body’s reading level.  This plug-in, however, works on a
-per-sentence basis.  This makes the results quite skewered when said sentence
-has, for example, a few long words or some unknown ones.
+Minimum number of words a sentence should have when warning (`number`, default:
+`5`).
+Most algorithms are designed to take a large sample of sentences to detect the
+body’s reading level.
+This plugin works on a per-sentence basis and that makes the results quite
+skewered when a short sentence has a few long words or some unknown ones.
 
 ## Related
 
@@ -112,11 +121,13 @@ has, for example, a few long words or some unknown ones.
 
 ## Contribute
 
-See [`contributing.md` in `retextjs/retext`][contributing] for ways to get
-started.
+See [`contributing.md`][contributing] in [`retextjs/.github`][health] for ways
+to get started.
+See [`support.md`][support] for ways to get help.
 
-This organisation has a [Code of Conduct][coc].  By interacting with this
-repository, organisation, or community you agree to abide by its terms.
+This project has a [Code of Conduct][coc].
+By interacting with this repository, organisation, or community you agree to
+abide by its terms.
 
 ## License
 
@@ -136,11 +147,29 @@ repository, organisation, or community you agree to abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/retext-readability
 
+[size-badge]: https://img.shields.io/bundlephobia/minzip/retext-readability.svg
+
+[size]: https://bundlephobia.com/result?p=retext-readability
+
+[sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
+
+[backers-badge]: https://opencollective.com/unified/backers/badge.svg
+
+[collective]: https://opencollective.com/unified
+
 [chat-badge]: https://img.shields.io/badge/join%20the%20community-on%20spectrum-7b16ff.svg
 
 [chat]: https://spectrum.chat/unified/retext
 
 [npm]: https://docs.npmjs.com/cli/install
+
+[health]: https://github.com/retextjs/.github
+
+[contributing]: https://github.com/retextjs/.github/blob/master/contributing.md
+
+[support]: https://github.com/retextjs/.github/blob/master/support.md
+
+[coc]: https://github.com/retextjs/.github/blob/master/code-of-conduct.md
 
 [license]: license
 
@@ -161,7 +190,3 @@ repository, organisation, or community you agree to abide by its terms.
 [spache]: https://github.com/words/spache-formula
 
 [smog]: https://github.com/words/smog-formula
-
-[contributing]: https://github.com/retextjs/retext/blob/master/contributing.md
-
-[coc]: https://github.com/retextjs/retext/blob/master/code-of-conduct.md

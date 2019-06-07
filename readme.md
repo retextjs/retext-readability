@@ -110,6 +110,35 @@ body’s reading level.
 This plugin works on a per-sentence basis and that makes the results quite
 skewered when a short sentence has a few long words or some unknown ones.
 
+### Messages
+
+Each message is emitted as a [`VFileMessage`][message] on `file`, with the
+following fields:
+
+###### `message.source`
+
+Name of this plugin (`'retext-readability'`).
+
+###### `message.ruleId`
+
+Name of this rule (`'readability'`).
+
+###### `message.actual`
+
+Current not ok sentence (`string`).
+
+###### `message.expected`
+
+Empty array as there is no direct fix for `actual` (`[]`).
+
+###### `message.confidence`
+
+Number between `0` and `1` to represent how many algorithms agreed (`number`).
+
+###### `message.confidenceLabel`
+
+String representing the fraction of `confidence` (`string`, such as `4/7`).
+
 ## Related
 
 *   [`retext-syntax-mentions`](https://github.com/retextjs/retext-syntax-mentions)
@@ -176,6 +205,8 @@ abide by its terms.
 [author]: https://wooorm.com
 
 [retext]: https://github.com/retextjs/retext
+
+[message]: https://github.com/vfile/vfile-message
 
 [dale-chall]: https://github.com/words/dale-chall-formula
 

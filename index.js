@@ -15,7 +15,7 @@ var spacheFormula = require('spache-formula')
 
 module.exports = readability
 
-var source = 'retext-readability'
+var origin = 'retext-readability:readability'
 var defaultTargetAge = 16
 var defaultWordynessThreshold = 5
 var defaultThreshold = 4 / 7
@@ -149,6 +149,7 @@ function report(file, node, threshold, target, results) {
   var index = -1
   var failCount = 0
   var confidence
+  var label
   var message
 
   while (++index < length) {
@@ -157,17 +158,19 @@ function report(file, node, threshold, target, results) {
     }
   }
 
-  if (failCount / length >= threshold) {
-    confidence = failCount + '/' + length
+  confidence = failCount / length
+
+  if (confidence >= threshold) {
+    label = failCount + '/' + length
 
     message = file.message(
-      'Hard to read sentence (confidence: ' + confidence + ')',
+      'Hard to read sentence (confidence: ' + label + ')',
       node,
-      source
+      origin
     )
-    message.confidence = confidence
-    message.source = source
     message.actual = toString(node)
-    message.expected = null
+    message.expected = []
+    message.confidence = confidence
+    message.confidenceLabel = label
   }
 }

@@ -7,6 +7,45 @@ var readability = require('.')
 test('readability', function(t) {
   retext()
     .use(readability)
+    .process(
+      [
+        'Oberon, also designated Uranus IV, is the outermost ',
+        'major moon of the planet Uranus and quite large',
+        'and massive for a Uranian moon.',
+        ''
+      ].join('\n'),
+      function(err, file) {
+        t.deepEqual(
+          [err].concat(file.messages),
+          [
+            null,
+            {
+              message: 'Hard to read sentence (confidence: 4/7)',
+              name: '1:1-3:32',
+              reason: 'Hard to read sentence (confidence: 4/7)',
+              line: 1,
+              column: 1,
+              location: {
+                start: {line: 1, column: 1, offset: 0},
+                end: {line: 3, column: 32, offset: 132}
+              },
+              source: 'retext-readability',
+              ruleId: 'readability',
+              fatal: false,
+              actual:
+                'Oberon, also designated Uranus IV, is the outermost \nmajor moon of the planet Uranus and quite large\nand massive for a Uranian moon.',
+              expected: [],
+              confidence: 4 / 7,
+              confidenceLabel: '4/7'
+            }
+          ],
+          'should emit messages'
+        )
+      }
+    )
+
+  retext()
+    .use(readability)
     .process('The cat sat on the mat', function(err, file) {
       t.deepEqual(
         [err].concat(file.messages.map(String)),

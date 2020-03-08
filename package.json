@@ -53,7 +53,7 @@
     "spache": "^1.1.0",
     "spache-formula": "^1.0.0",
     "syllable": "^4.0.0",
-    "unist-util-visit": "^1.0.0"
+    "unist-util-visit": "^2.0.0"
   },
   "devDependencies": {
     "browserify": "^16.0.0",

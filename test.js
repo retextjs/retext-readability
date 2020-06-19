@@ -4,7 +4,7 @@ var test = require('tape')
 var retext = require('retext')
 var readability = require('.')
 
-test('readability', function(t) {
+test('readability', function (t) {
   retext()
     .use(readability)
     .process(
@@ -14,9 +14,9 @@ test('readability', function(t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function(err, file) {
+      function (err, file) {
         t.deepEqual(
-          [err].concat(file.messages),
+          [err].concat(JSON.parse(JSON.stringify(file.messages))),
           [
             null,
             {
@@ -46,7 +46,7 @@ test('readability', function(t) {
 
   retext()
     .use(readability)
-    .process('The cat sat on the mat', function(err, file) {
+    .process('The cat sat on the mat', function (err, file) {
       t.deepEqual(
         [err].concat(file.messages.map(String)),
         [null],
@@ -63,7 +63,7 @@ test('readability', function(t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function(err, file) {
+      function (err, file) {
         t.deepEqual(
           [err].concat(file.messages.map(String)),
           [null, '1:1-3:32: Hard to read sentence (confidence: 4/7)'],
@@ -81,7 +81,7 @@ test('readability', function(t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function(err, file) {
+      function (err, file) {
         t.deepEqual(
           [err].concat(file.messages.map(String)),
           [null],
@@ -99,7 +99,7 @@ test('readability', function(t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function(err, file) {
+      function (err, file) {
         t.deepEqual(
           [err].concat(file.messages.map(String)),
           [null],
@@ -117,7 +117,7 @@ test('readability', function(t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function(err, file) {
+      function (err, file) {
         t.deepEqual(
           [err].concat(file.messages.map(String)),
           [null, '1:1-3:32: Hard to read sentence (confidence: 5/7)'],
@@ -135,7 +135,7 @@ test('readability', function(t) {
         'and second most massive of the Uranian moons.',
         ''
       ].join('\n'),
-      function(err, file) {
+      function (err, file) {
         t.deepEqual(
           [err].concat(file.messages.map(String)),
           [null, '1:1-3:46: Hard to read sentence (confidence: 5/7)'],
@@ -154,7 +154,7 @@ test('readability', function(t) {
         'ninth most massive moon in the Solar System.',
         ''
       ].join('\n'),
-      function(err, file) {
+      function (err, file) {
         t.deepEqual(
           [err].concat(file.messages.map(String)),
           [null, '1:1-4:45: Hard to read sentence (confidence: 6/7)'],
@@ -165,7 +165,7 @@ test('readability', function(t) {
 
   retext()
     .use(readability)
-    .process('Honorificabilitudinitatibus.', function(err, file) {
+    .process('Honorificabilitudinitatibus.', function (err, file) {
       t.deepEqual(
         [err].concat(file.messages.map(String)),
         [null],
@@ -175,7 +175,7 @@ test('readability', function(t) {
 
   retext()
     .use(readability, {minWords: 0})
-    .process('Honorificabilitudinitatibus.', function(err, file) {
+    .process('Honorificabilitudinitatibus.', function (err, file) {
       t.deepEqual(
         [err].concat(file.messages.map(String)),
         [null, '1:1-1:29: Hard to read sentence (confidence: 4/7)'],

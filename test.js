@@ -14,9 +14,9 @@ test('readability', function (t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function (err, file) {
+      function (error, file) {
         t.deepEqual(
-          [err].concat(JSON.parse(JSON.stringify(file.messages))),
+          [error].concat(JSON.parse(JSON.stringify(file.messages))),
           [
             null,
             {
@@ -46,9 +46,9 @@ test('readability', function (t) {
 
   retext()
     .use(readability)
-    .process('The cat sat on the mat', function (err, file) {
+    .process('The cat sat on the mat', function (error, file) {
       t.deepEqual(
-        [err].concat(file.messages.map(String)),
+        [error].concat(file.messages.map(String)),
         [null],
         'should not warn when a sentence is easy to read'
       )
@@ -63,9 +63,9 @@ test('readability', function (t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function (err, file) {
+      function (error, file) {
         t.deepEqual(
-          [err].concat(file.messages.map(String)),
+          [error].concat(file.messages.map(String)),
           [null, '1:1-3:32: Hard to read sentence (confidence: 4/7)'],
           'should warn when low confidence that a sentence is hard to read'
         )
@@ -81,9 +81,9 @@ test('readability', function (t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function (err, file) {
+      function (error, file) {
         t.deepEqual(
-          [err].concat(file.messages.map(String)),
+          [error].concat(file.messages.map(String)),
           [null],
           'should support a threshold'
         )
@@ -99,9 +99,9 @@ test('readability', function (t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function (err, file) {
+      function (error, file) {
         t.deepEqual(
-          [err].concat(file.messages.map(String)),
+          [error].concat(file.messages.map(String)),
           [null],
           'should support a given age (removing the warning)'
         )
@@ -117,9 +117,9 @@ test('readability', function (t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function (err, file) {
+      function (error, file) {
         t.deepEqual(
-          [err].concat(file.messages.map(String)),
+          [error].concat(file.messages.map(String)),
           [null, '1:1-3:32: Hard to read sentence (confidence: 5/7)'],
           'should support a given age (upping the warning)'
         )
@@ -135,9 +135,9 @@ test('readability', function (t) {
         'and second most massive of the Uranian moons.',
         ''
       ].join('\n'),
-      function (err, file) {
+      function (error, file) {
         t.deepEqual(
-          [err].concat(file.messages.map(String)),
+          [error].concat(file.messages.map(String)),
           [null, '1:1-3:46: Hard to read sentence (confidence: 5/7)'],
           'should warn when moderately confident that a sentence is hard to read'
         )
@@ -154,9 +154,9 @@ test('readability', function (t) {
         'ninth most massive moon in the Solar System.',
         ''
       ].join('\n'),
-      function (err, file) {
+      function (error, file) {
         t.deepEqual(
-          [err].concat(file.messages.map(String)),
+          [error].concat(file.messages.map(String)),
           [null, '1:1-4:45: Hard to read sentence (confidence: 6/7)'],
           'should warn when highly confident that a sentence is hard to read'
         )
@@ -165,9 +165,9 @@ test('readability', function (t) {
 
   retext()
     .use(readability)
-    .process('Honorificabilitudinitatibus.', function (err, file) {
+    .process('Honorificabilitudinitatibus.', function (error, file) {
       t.deepEqual(
-        [err].concat(file.messages.map(String)),
+        [error].concat(file.messages.map(String)),
         [null],
         'should support minWords (default)'
       )
@@ -175,9 +175,9 @@ test('readability', function (t) {
 
   retext()
     .use(readability, {minWords: 0})
-    .process('Honorificabilitudinitatibus.', function (err, file) {
+    .process('Honorificabilitudinitatibus.', function (error, file) {
       t.deepEqual(
-        [err].concat(file.messages.map(String)),
+        [error].concat(file.messages.map(String)),
         [null, '1:1-1:29: Hard to read sentence (confidence: 4/7)'],
         'should support `minWords` (config)'
       )

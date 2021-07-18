@@ -18,6 +18,9 @@ Applies [Dale—Chall][dale-chall],
 
 ## Install
 
+This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
+Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
+
 [npm][]:
 
 ```sh
@@ -39,19 +42,22 @@ discovered, with a surface temperature of 200,000 kelvin
 …and our script, `example.js`, looks like this:
 
 ```js
-var vfile = require('to-vfile')
-var report = require('vfile-reporter')
-var unified = require('unified')
-var english = require('retext-english')
-var stringify = require('retext-stringify')
-var readability = require('retext-readability')
+import {readSync} from 'to-vfile'
+import {reporter} from 'vfile-reporter'
+import {unified} from 'unified'
+import retextEnglish from 'retext-english'
+import retextStringify from 'retext-stringify'
+import retextReadability from 'retext-readability'
+
+const file = readSync('example.txt')
 
 unified()
-  .use(english)
-  .use(readability)
-  .use(stringify)
-  .process(vfile.readSync('example.txt'), function(err, file) {
-    console.error(report(err || file))
+  .use(retextEnglish)
+  .use(retextReadability)
+  .use(retextStringify)
+  .process(file)
+  .then((file) => {
+    console.error(reporter(file))
   })
 ```
 
@@ -67,10 +73,10 @@ example.txt
 By default, the target age is 16, but ages can be set, for example, to 6:
 
 ```diff
-   .use(english)
--  .use(readability)
-+  .use(readability, {age: 6})
-   .use(stringify)
+   .use(retextEnglish)
+-  .use(retextReadability)
++  .use(retextReadability, {age: 6})
+   .use(retextStringify)
 ```
 
 Now, running `node example` once more yields:
@@ -85,7 +91,10 @@ example.txt
 
 ## API
 
-### `retext().use(readability[, options])`
+This package exports no identifiers.
+The default export is `retextReadability`.
+
+### `unified().use(retextReadability[, options])`
 
 Detect possibly hard to read sentences.
 

@@ -1,10 +1,10 @@
 import test from 'tape'
-import retext from 'retext'
-import readability from './index.js'
+import {retext} from 'retext'
+import retextReadability from './index.js'
 
-test('readability', function (t) {
+test('retext-readability', function (t) {
   retext()
-    .use(readability)
+    .use(retextReadability)
     .process(
       [
         'Oberon, also designated Uranus IV, is the outermost ',
@@ -18,17 +18,17 @@ test('readability', function (t) {
           [
             null,
             {
-              message: 'Hard to read sentence (confidence: 4/7)',
               name: '1:1-3:32',
+              message: 'Hard to read sentence (confidence: 4/7)',
               reason: 'Hard to read sentence (confidence: 4/7)',
               line: 1,
               column: 1,
-              location: {
+              source: 'retext-readability',
+              ruleId: 'readability',
+              position: {
                 start: {line: 1, column: 1, offset: 0},
                 end: {line: 3, column: 32, offset: 132}
               },
-              source: 'retext-readability',
-              ruleId: 'readability',
               fatal: false,
               actual:
                 'Oberon, also designated Uranus IV, is the outermost \nmajor moon of the planet Uranus and quite large\nand massive for a Uranian moon.',
@@ -43,7 +43,7 @@ test('readability', function (t) {
     )
 
   retext()
-    .use(readability)
+    .use(retextReadability)
     .process('The cat sat on the mat', function (error, file) {
       t.deepEqual(
         [error].concat(file.messages.map(String)),
@@ -53,7 +53,7 @@ test('readability', function (t) {
     })
 
   retext()
-    .use(readability)
+    .use(retextReadability)
     .process(
       [
         'Oberon, also designated Uranus IV, is the outermost ',
@@ -71,7 +71,7 @@ test('readability', function (t) {
     )
 
   retext()
-    .use(readability, {threshold: 5 / 7})
+    .use(retextReadability, {threshold: 5 / 7})
     .process(
       [
         'Oberon, also designated Uranus IV, is the outermost ',
@@ -89,7 +89,7 @@ test('readability', function (t) {
     )
 
   retext()
-    .use(readability, {age: 18})
+    .use(retextReadability, {age: 18})
     .process(
       [
         'Oberon, also designated Uranus IV, is the outermost ',
@@ -107,7 +107,7 @@ test('readability', function (t) {
     )
 
   retext()
-    .use(readability, {age: 14})
+    .use(retextReadability, {age: 14})
     .process(
       [
         'Oberon, also designated Uranus IV, is the outermost ',
@@ -125,7 +125,7 @@ test('readability', function (t) {
     )
 
   retext()
-    .use(readability)
+    .use(retextReadability)
     .process(
       [
         'Oberon, also designated Uranus IV, is the outermost ',
@@ -143,7 +143,7 @@ test('readability', function (t) {
     )
 
   retext()
-    .use(readability, {age: 14})
+    .use(retextReadability, {age: 14})
     .process(
       [
         'Oberon, also designated Uranus IV, is the outermost ',
@@ -162,7 +162,7 @@ test('readability', function (t) {
     )
 
   retext()
-    .use(readability)
+    .use(retextReadability)
     .process('Honorificabilitudinitatibus.', function (error, file) {
       t.deepEqual(
         [error].concat(file.messages.map(String)),
@@ -172,7 +172,7 @@ test('readability', function (t) {
     })
 
   retext()
-    .use(readability, {minWords: 0})
+    .use(retextReadability, {minWords: 0})
     .process('Honorificabilitudinitatibus.', function (error, file) {
       t.deepEqual(
         [error].concat(file.messages.map(String)),

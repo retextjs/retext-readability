@@ -45,18 +45,18 @@
     "index.js"
   ],
   "dependencies": {
-    "automated-readability": "^1.0.0",
-    "coleman-liau": "^1.0.0",
+    "automated-readability": "^2.0.0",
+    "coleman-liau": "^2.0.0",
     "dale-chall": "^2.0.0",
-    "dale-chall-formula": "^1.0.0",
-    "flesch": "^1.0.0",
-    "gunning-fog": "^1.0.0",
-    "nlcst-to-string": "^2.0.0",
-    "smog-formula": "^1.0.0",
+    "dale-chall-formula": "^2.0.0",
+    "flesch": "^2.0.0",
+    "gunning-fog": "^2.0.0",
+    "nlcst-to-string": "^3.0.0",
+    "smog-formula": "^2.0.0",
     "spache": "^2.0.0",
-    "spache-formula": "^1.0.0",
-    "syllable": "^4.0.0",
-    "unist-util-visit": "^2.0.0"
+    "spache-formula": "^2.0.0",
+    "syllable": "^5.0.0",
+    "unist-util-visit": "^3.0.0"
   },
   "devDependencies": {
     "c8": "^7.0.0",

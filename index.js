@@ -1,15 +1,15 @@
-import visit from 'unist-util-visit'
-import toString from 'nlcst-to-string'
-import syllable from 'syllable'
+import {automatedReadability} from 'automated-readability'
+import {colemanLiau} from 'coleman-liau'
 import {daleChall} from 'dale-chall'
+import {daleChallFormula, daleChallGradeLevel} from 'dale-chall-formula'
+import {flesch} from 'flesch'
+import {gunningFog} from 'gunning-fog'
+import {toString} from 'nlcst-to-string'
+import {smogFormula} from 'smog-formula'
 import {spache} from 'spache'
-import daleChallFormula from 'dale-chall-formula'
-import ari from 'automated-readability'
-import colemanLiau from 'coleman-liau'
-import flesch from 'flesch'
-import smog from 'smog-formula'
-import gunningFog from 'gunning-fog'
-import spacheFormula from 'spache-formula'
+import {spacheFormula} from 'spache-formula'
+import {syllable} from 'syllable'
+import {visit, SKIP} from 'unist-util-visit'
 
 var origin = 'retext-readability:readability'
 var defaultTargetAge = 16
@@ -66,17 +66,17 @@ export default function retextReadability(options) {
         }
 
         report(file, sentence, threshold, targetAge, [
-          gradeToAge(daleChallFormula.gradeLevel(daleChallFormula(counts))[1]),
-          gradeToAge(ari(counts)),
+          gradeToAge(daleChallGradeLevel(daleChallFormula(counts))[1]),
+          gradeToAge(automatedReadability(counts)),
           gradeToAge(colemanLiau(counts)),
           fleschToAge(flesch(counts)),
-          smogToAge(smog(counts)),
+          smogToAge(smogFormula(counts)),
           gradeToAge(gunningFog(counts)),
           gradeToAge(spacheFormula(counts))
         ])
       }
 
-      return visit.SKIP
+      return SKIP
 
       function visitor(node) {
         var value = toString(node)

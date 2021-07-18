@@ -1,3 +1,21 @@
+/**
+ * @typedef Options
+ * @property {number} [age=16]
+ *   Target age group.
+ *   Note that the different algorithms provide varying results, so your milage
+ *   may vary with people actually that age.
+ * @property {number} [threshold=4/7]
+ *   Number of algorithms that need to agree.
+ *   By default, 4 out of the 7 algorithms need to agree that a sentence is hard
+ *   to read for the target age, in which case it’s warned about.
+ * @property {number} [minWords=5]
+ *   Minimum number of words a sentence should have when warning.
+ *   Most algorithms are designed to take a large sample of sentences to detect
+ *   the body’s reading level.
+ *   This plugin works on a per-sentence basis and that makes the results quite
+ *   skewered when a short sentence has a few long words or some unknown ones.
+ */
+
 import {automatedReadability} from 'automated-readability'
 import {colemanLiau} from 'coleman-liau'
 import {daleChall} from 'dale-chall'
@@ -22,18 +40,24 @@ const round = Math.round
 const ceil = Math.ceil
 const sqrt = Math.sqrt
 
+/**
+ * Plugin to detect possibly hard to read sentences.
+ *
+ * @type {import('unified').Plugin<[Options?]>}
+ */
 export default function retextReadability(options = {}) {
   const targetAge = options.age || defaultTargetAge
   const threshold = options.threshold || defaultThreshold
-  let minWords = options.minWords
-
-  if (minWords === null || minWords === undefined) {
-    minWords = defaultWordynessThreshold
-  }
+  const minWords =
+    options.minWords === null || options.minWords === undefined
+      ? defaultWordynessThreshold
+      : options.minWords
 
   return (tree, file) => {
     visit(tree, 'SentenceNode', (sentence) => {
+      /** @type {Record<string, boolean>} */
       const familiarWords = {}
+      /** @type {Record<string, boolean>} */
       const easyWord = {}
       let complexPolysillabicWord = 0
       let familiarWordCount = 0
@@ -42,17 +66,15 @@ export default function retextReadability(options = {}) {
       let easyWordCount = 0
       let wordCount = 0
       let letters = 0
-      let counts
-      let caseless
 
       visit(sentence, 'WordNode', (node) => {
         const value = toString(node)
+        const caseless = value.toLowerCase()
         const syllables = syllable(value)
 
         wordCount++
         totalSyllables += syllables
         letters += value.length
-        caseless = value.toLowerCase()
 
         // Count complex words for gunning-fog based on whether they have three
         // or more syllables and whether they aren’t proper nouns.  The last is
@@ -79,7 +101,7 @@ export default function retextReadability(options = {}) {
       })
 
       if (wordCount >= minWords) {
-        counts = {
+        const counts = {
           complexPolysillabicWord,
           polysillabicWord,
           unfamiliarWord: wordCount - familiarWordCount,
@@ -91,7 +113,8 @@ export default function retextReadability(options = {}) {
           letter: letters
         }
 
-        report(file, sentence, threshold, targetAge, [
+        /** @type {number[]} */
+        const scores = [
           gradeToAge(daleChallGradeLevel(daleChallFormula(counts))[1]),
           gradeToAge(automatedReadability(counts)),
           gradeToAge(colemanLiau(counts)),
@@ -99,7 +122,36 @@ export default function retextReadability(options = {}) {
           smogToAge(smogFormula(counts)),
           gradeToAge(gunningFog(counts)),
           gradeToAge(spacheFormula(counts))
-        ])
+        ]
+
+        let index = -1
+        let failCount = 0
+
+        while (++index < scores.length) {
+          if (scores[index] > targetAge) {
+            failCount++
+          }
+        }
+
+        const confidence = failCount / scores.length
+
+        if (confidence >= threshold) {
+          const label = failCount + '/' + scores.length
+
+          Object.assign(
+            file.message(
+              'Hard to read sentence (confidence: ' + label + ')',
+              sentence,
+              origin
+            ),
+            {
+              actual: toString(sentence),
+              expected: [],
+              confidence,
+              confidenceLabel: label
+            }
+          )
+        }
       }
 
       return SKIP
@@ -107,48 +159,35 @@ export default function retextReadability(options = {}) {
   }
 }
 
-// Calculate the typical starting age (on the higher-end) when someone joins
-// `grade` grade, in the US.  See:
-// https://en.wikipedia.org/wiki/Educational_stage#United_States
+/**
+ * Calculate the typical starting age (on the higher-end) when someone joins
+ * `grade` grade, in the US.
+ * See: <https://en.wikipedia.org/wiki/Educational_stage#United_States>
+ *
+ * @param {number} grade
+ * @returns {number}
+ */
 function gradeToAge(grade) {
   return round(grade + 5)
 }
 
-// Calculate the age relating to a Flesch result.
+/**
+ * Calculate the age relating to a Flesch result.
+ *
+ * @param {number} value
+ * @returns {number}
+ */
 function fleschToAge(value) {
   return 20 - floor(value / 10)
 }
 
-// Calculate the age relating to a SMOG result.  See:
-// http://www.readabilityformulas.com/smog-readability-formula.php
+/**
+ * Calculate the age relating to a SMOG result.
+ * See: <http://www.readabilityformulas.com/smog-readability-formula.php>
+ *
+ * @param {number} value
+ * @returns {number}
+ */
 function smogToAge(value) {
   return ceil(sqrt(value) + 2.5)
-}
-
-// Report the `results` if they’re reliably too hard for the `target` age.
-// eslint-disable-next-line max-params
-function report(file, node, threshold, target, results) {
-  let index = -1
-  let failCount = 0
-
-  while (++index < results.length) {
-    if (results[index] > target) {
-      failCount++
-    }
-  }
-
-  const confidence = failCount / results.length
-
-  if (confidence >= threshold) {
-    const label = failCount + '/' + results.length
-
-    Object.assign(
-      file.message(
-        'Hard to read sentence (confidence: ' + label + ')',
-        node,
-        origin
-      ),
-      {actual: toString(node), expected: [], confidence, confidenceLabel: label}
-    )
-  }
 }

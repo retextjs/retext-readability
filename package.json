@@ -38,19 +38,22 @@
     "Josiah Sprague <josiah.sprague@gmail.com>",
     "Sylvan Swierkosz <sswierkosz@gmail.com>"
   ],
+  "sideEffects": false,
+  "type": "module",
+  "main": "index.js",
   "files": [
     "index.js"
   ],
   "dependencies": {
     "automated-readability": "^1.0.0",
     "coleman-liau": "^1.0.0",
-    "dale-chall": "^1.0.0",
+    "dale-chall": "^2.0.0",
     "dale-chall-formula": "^1.0.0",
     "flesch": "^1.0.0",
     "gunning-fog": "^1.0.0",
     "nlcst-to-string": "^2.0.0",
     "smog-formula": "^1.0.0",
-    "spache": "^1.1.0",
+    "spache": "^2.0.0",
     "spache-formula": "^1.0.0",
     "syllable": "^4.0.0",
     "unist-util-visit": "^2.0.0"
@@ -62,7 +65,7 @@
     "remark-preset-wooorm": "^8.0.0",
     "retext": "^7.0.0",
     "tape": "^5.0.0",
-    "xo": "^0.37.0"
+    "xo": "^0.39.0"
   },
   "scripts": {
     "format": "remark . -qfo && prettier . -w --loglevel warn && xo --fix",
@@ -80,8 +83,9 @@
   },
   "xo": {
     "prettier": true,
-    "esnext": false,
     "rules": {
+      "no-var": "off",
+      "prefer-arrow-callback": "off",
       "unicorn/no-array-callback-reference": "off",
       "unicorn/prefer-includes": "off"
     }

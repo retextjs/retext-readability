@@ -1,8 +1,6 @@
-'use strict'
-
-var test = require('tape')
-var retext = require('retext')
-var readability = require('.')
+import test from 'tape'
+import retext from 'retext'
+import readability from './index.js'
 
 test('readability', function (t) {
   retext()

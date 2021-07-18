@@ -1,19 +1,15 @@
-'use strict'
-
-var visit = require('unist-util-visit')
-var toString = require('nlcst-to-string')
-var syllable = require('syllable')
-var daleChall = require('dale-chall')
-var spache = require('spache')
-var daleChallFormula = require('dale-chall-formula')
-var ari = require('automated-readability')
-var colemanLiau = require('coleman-liau')
-var flesch = require('flesch')
-var smog = require('smog-formula')
-var gunningFog = require('gunning-fog')
-var spacheFormula = require('spache-formula')
-
-module.exports = readability
+import visit from 'unist-util-visit'
+import toString from 'nlcst-to-string'
+import syllable from 'syllable'
+import {daleChall} from 'dale-chall'
+import {spache} from 'spache'
+import daleChallFormula from 'dale-chall-formula'
+import ari from 'automated-readability'
+import colemanLiau from 'coleman-liau'
+import flesch from 'flesch'
+import smog from 'smog-formula'
+import gunningFog from 'gunning-fog'
+import spacheFormula from 'spache-formula'
 
 var origin = 'retext-readability:readability'
 var defaultTargetAge = 16
@@ -26,7 +22,7 @@ var round = Math.round
 var ceil = Math.ceil
 var sqrt = Math.sqrt
 
-function readability(options) {
+export default function retextReadability(options) {
   var settings = options || {}
   var targetAge = settings.age || defaultTargetAge
   var threshold = settings.threshold || defaultThreshold
@@ -58,8 +54,8 @@ function readability(options) {
 
       if (wordCount >= minWords) {
         counts = {
-          complexPolysillabicWord: complexPolysillabicWord,
-          polysillabicWord: polysillabicWord,
+          complexPolysillabicWord,
+          polysillabicWord,
           unfamiliarWord: wordCount - familiarWordCount,
           difficultWord: wordCount - easyWordCount,
           syllable: totalSyllables,

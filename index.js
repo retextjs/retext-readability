@@ -11,46 +11,72 @@ import {spacheFormula} from 'spache-formula'
 import {syllable} from 'syllable'
 import {visit, SKIP} from 'unist-util-visit'
 
-var origin = 'retext-readability:readability'
-var defaultTargetAge = 16
-var defaultWordynessThreshold = 5
-var defaultThreshold = 4 / 7
+const origin = 'retext-readability:readability'
+const defaultTargetAge = 16
+const defaultWordynessThreshold = 5
+const defaultThreshold = 4 / 7
 
-var own = {}.hasOwnProperty
-var floor = Math.floor
-var round = Math.round
-var ceil = Math.ceil
-var sqrt = Math.sqrt
+const own = {}.hasOwnProperty
+const floor = Math.floor
+const round = Math.round
+const ceil = Math.ceil
+const sqrt = Math.sqrt
 
-export default function retextReadability(options) {
-  var settings = options || {}
-  var targetAge = settings.age || defaultTargetAge
-  var threshold = settings.threshold || defaultThreshold
-  var minWords = settings.minWords
+export default function retextReadability(options = {}) {
+  const targetAge = options.age || defaultTargetAge
+  const threshold = options.threshold || defaultThreshold
+  let minWords = options.minWords
 
   if (minWords === null || minWords === undefined) {
     minWords = defaultWordynessThreshold
   }
 
-  return transformer
+  return (tree, file) => {
+    visit(tree, 'SentenceNode', (sentence) => {
+      const familiarWords = {}
+      const easyWord = {}
+      let complexPolysillabicWord = 0
+      let familiarWordCount = 0
+      let polysillabicWord = 0
+      let totalSyllables = 0
+      let easyWordCount = 0
+      let wordCount = 0
+      let letters = 0
+      let counts
+      let caseless
 
-  function transformer(tree, file) {
-    visit(tree, 'SentenceNode', gather)
+      visit(sentence, 'WordNode', (node) => {
+        const value = toString(node)
+        const syllables = syllable(value)
 
-    function gather(sentence) {
-      var familiarWords = {}
-      var easyWord = {}
-      var complexPolysillabicWord = 0
-      var familiarWordCount = 0
-      var polysillabicWord = 0
-      var totalSyllables = 0
-      var easyWordCount = 0
-      var wordCount = 0
-      var letters = 0
-      var counts
-      var caseless
+        wordCount++
+        totalSyllables += syllables
+        letters += value.length
+        caseless = value.toLowerCase()
 
-      visit(sentence, 'WordNode', visitor)
+        // Count complex words for gunning-fog based on whether they have three
+        // or more syllables and whether they aren’t proper nouns.  The last is
+        // checked a little simple, so this index might be over-eager.
+        if (syllables >= 3) {
+          polysillabicWord++
+
+          if (value.charCodeAt(0) === caseless.charCodeAt(0)) {
+            complexPolysillabicWord++
+          }
+        }
+
+        // Find unique unfamiliar words for spache.
+        if (spache.includes(caseless) && !own.call(familiarWords, caseless)) {
+          familiarWords[caseless] = true
+          familiarWordCount++
+        }
+
+        // Find unique difficult words for dale-chall.
+        if (daleChall.includes(caseless) && !own.call(easyWord, caseless)) {
+          easyWord[caseless] = true
+          easyWordCount++
+        }
+      })
 
       if (wordCount >= minWords) {
         counts = {
@@ -77,46 +103,7 @@ export default function retextReadability(options) {
       }
 
       return SKIP
-
-      function visitor(node) {
-        var value = toString(node)
-        var syllables = syllable(value)
-
-        wordCount++
-        totalSyllables += syllables
-        letters += value.length
-        caseless = value.toLowerCase()
-
-        // Count complex words for gunning-fog based on whether they have three
-        // or more syllables and whether they aren’t proper nouns.  The last is
-        // checked a little simple, so this index might be over-eager.
-        if (syllables >= 3) {
-          polysillabicWord++
-
-          if (value.charCodeAt(0) === caseless.charCodeAt(0)) {
-            complexPolysillabicWord++
-          }
-        }
-
-        // Find unique unfamiliar words for spache.
-        if (
-          spache.indexOf(caseless) !== -1 &&
-          !own.call(familiarWords, caseless)
-        ) {
-          familiarWords[caseless] = true
-          familiarWordCount++
-        }
-
-        // Find unique difficult words for dale-chall.
-        if (
-          daleChall.indexOf(caseless) !== -1 &&
-          !own.call(easyWord, caseless)
-        ) {
-          easyWord[caseless] = true
-          easyWordCount++
-        }
-      }
-    }
+    })
   }
 }
 
@@ -141,32 +128,27 @@ function smogToAge(value) {
 // Report the `results` if they’re reliably too hard for the `target` age.
 // eslint-disable-next-line max-params
 function report(file, node, threshold, target, results) {
-  var length = results.length
-  var index = -1
-  var failCount = 0
-  var confidence
-  var label
-  var message
+  let index = -1
+  let failCount = 0
 
-  while (++index < length) {
+  while (++index < results.length) {
     if (results[index] > target) {
       failCount++
     }
   }
 
-  confidence = failCount / length
+  const confidence = failCount / results.length
 
   if (confidence >= threshold) {
-    label = failCount + '/' + length
+    const label = failCount + '/' + results.length
 
-    message = file.message(
-      'Hard to read sentence (confidence: ' + label + ')',
-      node,
-      origin
+    Object.assign(
+      file.message(
+        'Hard to read sentence (confidence: ' + label + ')',
+        node,
+        origin
+      ),
+      {actual: toString(node), expected: [], confidence, confidenceLabel: label}
     )
-    message.actual = toString(node)
-    message.expected = []
-    message.confidence = confidence
-    message.confidenceLabel = label
   }
 }

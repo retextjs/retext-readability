@@ -2,7 +2,7 @@ import test from 'tape'
 import {retext} from 'retext'
 import retextReadability from './index.js'
 
-test('retext-readability', function (t) {
+test('retext-readability', (t) => {
   retext()
     .use(retextReadability)
     .process(
@@ -12,7 +12,7 @@ test('retext-readability', function (t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function (error, file) {
+      (error, file) => {
         t.deepEqual(
           [error].concat(JSON.parse(JSON.stringify(file.messages))),
           [
@@ -44,9 +44,9 @@ test('retext-readability', function (t) {
 
   retext()
     .use(retextReadability)
-    .process('The cat sat on the mat', function (error, file) {
+    .process('The cat sat on the mat', (error, file) => {
       t.deepEqual(
-        [error].concat(file.messages.map(String)),
+        [error].concat(file.messages.map((d) => String(d))),
         [null],
         'should not warn when a sentence is easy to read'
       )
@@ -61,9 +61,9 @@ test('retext-readability', function (t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function (error, file) {
+      (error, file) => {
         t.deepEqual(
-          [error].concat(file.messages.map(String)),
+          [error].concat(file.messages.map((d) => String(d))),
           [null, '1:1-3:32: Hard to read sentence (confidence: 4/7)'],
           'should warn when low confidence that a sentence is hard to read'
         )
@@ -79,9 +79,9 @@ test('retext-readability', function (t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function (error, file) {
+      (error, file) => {
         t.deepEqual(
-          [error].concat(file.messages.map(String)),
+          [error].concat(file.messages.map((d) => String(d))),
           [null],
           'should support a threshold'
         )
@@ -97,9 +97,9 @@ test('retext-readability', function (t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function (error, file) {
+      (error, file) => {
         t.deepEqual(
-          [error].concat(file.messages.map(String)),
+          [error].concat(file.messages.map((d) => String(d))),
           [null],
           'should support a given age (removing the warning)'
         )
@@ -115,9 +115,9 @@ test('retext-readability', function (t) {
         'and massive for a Uranian moon.',
         ''
       ].join('\n'),
-      function (error, file) {
+      (error, file) => {
         t.deepEqual(
-          [error].concat(file.messages.map(String)),
+          [error].concat(file.messages.map((d) => String(d))),
           [null, '1:1-3:32: Hard to read sentence (confidence: 5/7)'],
           'should support a given age (upping the warning)'
         )
@@ -133,9 +133,9 @@ test('retext-readability', function (t) {
         'and second most massive of the Uranian moons.',
         ''
       ].join('\n'),
-      function (error, file) {
+      (error, file) => {
         t.deepEqual(
-          [error].concat(file.messages.map(String)),
+          [error].concat(file.messages.map((d) => String(d))),
           [null, '1:1-3:46: Hard to read sentence (confidence: 5/7)'],
           'should warn when moderately confident that a sentence is hard to read'
         )
@@ -152,9 +152,9 @@ test('retext-readability', function (t) {
         'ninth most massive moon in the Solar System.',
         ''
       ].join('\n'),
-      function (error, file) {
+      (error, file) => {
         t.deepEqual(
-          [error].concat(file.messages.map(String)),
+          [error].concat(file.messages.map((d) => String(d))),
           [null, '1:1-4:45: Hard to read sentence (confidence: 6/7)'],
           'should warn when highly confident that a sentence is hard to read'
         )
@@ -163,9 +163,9 @@ test('retext-readability', function (t) {
 
   retext()
     .use(retextReadability)
-    .process('Honorificabilitudinitatibus.', function (error, file) {
+    .process('Honorificabilitudinitatibus.', (error, file) => {
       t.deepEqual(
-        [error].concat(file.messages.map(String)),
+        [error].concat(file.messages.map((d) => String(d))),
         [null],
         'should support minWords (default)'
       )
@@ -173,9 +173,9 @@ test('retext-readability', function (t) {
 
   retext()
     .use(retextReadability, {minWords: 0})
-    .process('Honorificabilitudinitatibus.', function (error, file) {
+    .process('Honorificabilitudinitatibus.', (error, file) => {
       t.deepEqual(
-        [error].concat(file.messages.map(String)),
+        [error].concat(file.messages.map((d) => String(d))),
         [null, '1:1-1:29: Hard to read sentence (confidence: 4/7)'],
         'should support `minWords` (config)'
       )

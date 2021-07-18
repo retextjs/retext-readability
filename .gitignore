@@ -1,7 +1,5 @@
-.DS_Store
-*.log
 node_modules/
 coverage/
-retext-readability.js
-retext-readability.min.js
+.DS_Store
+*.log
 yarn.lock

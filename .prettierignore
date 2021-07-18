@@ -1,5 +1,2 @@
 coverage/
-retext-readability.js
-retext-readability.min.js
-*.json
 *.md

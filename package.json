@@ -47,6 +47,7 @@
     "index.js"
   ],
   "dependencies": {
+    "@types/nlcst": "^1.0.0",
     "automated-readability": "^2.0.0",
     "coleman-liau": "^2.0.0",
     "dale-chall": "^2.0.0",

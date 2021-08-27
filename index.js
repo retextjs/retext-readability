@@ -1,4 +1,6 @@
 /**
+ * @typedef {import('nlcst').Root} Root
+ *
  * @typedef Options
  * @property {number} [age=16]
  *   Target age group.
@@ -43,7 +45,7 @@ const sqrt = Math.sqrt
 /**
  * Plugin to detect possibly hard to read sentences.
  *
- * @type {import('unified').Plugin<[Options?]>}
+ * @type {import('unified').Plugin<[Options?], Root>}
  */
 export default function retextReadability(options = {}) {
   const targetAge = options.age || defaultTargetAge

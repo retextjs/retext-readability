@@ -32,6 +32,7 @@ import {syllable} from 'syllable'
 import {visit, SKIP} from 'unist-util-visit'
 
 const origin = 'retext-readability:readability'
+const url = 'https://github.com/retextjs/retext-readability#readme'
 const defaultTargetAge = 16
 const defaultWordynessThreshold = 5
 const defaultThreshold = 4 / 7
@@ -149,6 +150,7 @@ export default function retextReadability(options = {}) {
             {
               actual: toString(sentence),
               expected: [],
+              url,
               confidence,
               confidenceLabel: label
             }

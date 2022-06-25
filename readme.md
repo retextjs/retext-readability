@@ -8,28 +8,65 @@
 [![Backers][backers-badge]][collective]
 [![Chat][chat-badge]][chat]
 
-[**retext**][retext] plugin to check readability.
-Applies [Dale—Chall][dale-chall],
+**[retext][]** plugin to check readability.
+
+## Contents
+
+*   [What is this?](#what-is-this)
+*   [When should I use this?](#when-should-i-use-this)
+*   [Install](#install)
+*   [Use](#use)
+*   [API](#api)
+    *   [`unified().use(retextReadability[, options])`](#unifieduseretextreadability-options)
+*   [Messages](#messages)
+*   [Types](#types)
+*   [Compatibility](#compatibility)
+*   [Related](#related)
+*   [Contribute](#contribute)
+*   [License](#license)
+
+## What is this?
+
+This package is a [unified][] ([retext][]) plugin to check readability: whether
+your presumed target audience can read your prose.
+It applies [Dale—Chall][dale-chall],
 [Automated Readability][automated-readability], [Coleman-Liau][], [Flesch][],
 [Gunning-Fog][], [SMOG][], and [Spache][].
 
-> Tip: I also made an online editable demo, similar to this project:
+## When should I use this?
+
+You can opt-into this plugin when you’re dealing with content that might be
+difficult to read to some folks, and have authors that can fix that content.
+
+> 💡 **Tip**: I also made an online, editable, demo, similar to this project:
 > [`wooorm.com/readability`](https://wooorm.com/readability/).
 
 ## Install
 
-This package is [ESM only](https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c):
-Node 12+ is needed to use it and it must be `import`ed instead of `require`d.
-
-[npm][]:
+This package is [ESM only][esm].
+In Node.js (version 12.20+, 14.14+, 16.0+, or 18.0+), install with [npm][]:
 
 ```sh
 npm install retext-readability
 ```
 
+In Deno with [`esm.sh`][esmsh]:
+
+```js
+import retextReadability from 'https://esm.sh/retext-readability@7'
+```
+
+In browsers with [`esm.sh`][esmsh]:
+
+```html
+<script type="module">
+  import retextReadability from 'https://esm.sh/retext-readability@7?bundle'
+</script>
+```
+
 ## Use
 
-Say we have the following file, `example.txt`:
+Say our document `example.txt` contains:
 
 ```txt
 The cat sat on the mat
@@ -39,29 +76,26 @@ star—Calvera—and H1504+65, the hottest white dwarf yet
 discovered, with a surface temperature of 200,000 kelvin
 ```
 
-…and our script, `example.js`, looks like this:
+…and our module `example.js` looks as follows:
 
 ```js
-import {readSync} from 'to-vfile'
+import {read} from 'to-vfile'
 import {reporter} from 'vfile-reporter'
 import {unified} from 'unified'
 import retextEnglish from 'retext-english'
 import retextStringify from 'retext-stringify'
 import retextReadability from 'retext-readability'
 
-const file = readSync('example.txt')
-
-unified()
+const file = unified()
   .use(retextEnglish)
   .use(retextReadability)
   .use(retextStringify)
-  .process(file)
-  .then((file) => {
-    console.error(reporter(file))
-  })
+  .process(await read('example.txt'))
+
+console.error(reporter(file))
 ```
 
-Now, running `node example` yields:
+…now running `node example.js` yields:
 
 ```txt
 example.txt
@@ -70,7 +104,8 @@ example.txt
 ⚠ 1 warning
 ```
 
-By default, the target age is 16, but ages can be set, for example, to 6:
+The target age is `16` by default, which you can change.
+For example, to `6`:
 
 ```diff
    .use(retextEnglish)
@@ -79,7 +114,7 @@ By default, the target age is 16, but ages can be set, for example, to 6:
    .use(retextStringify)
 ```
 
-Now, running `node example` once more yields:
+…now running `node example.js` once moer yields:
 
 ```txt
 example.txt
@@ -98,11 +133,16 @@ The default export is `retextReadability`.
 
 Detect possibly hard to read sentences.
 
+##### `options`
+
+Configuration (optional).
+
 ###### `options.age`
 
 Target age group (`number`, default: `16`).
 Note that the different algorithms provide varying results, so your milage may
-vary with people actually that age.  :wink:
+vary with people actually that age.
+:wink:
 
 ###### `options.threshold`
 
@@ -119,7 +159,7 @@ body’s reading level.
 This plugin works on a per-sentence basis and that makes the results quite
 skewered when a short sentence has a few long words or some unknown ones.
 
-### Messages
+## Messages
 
 Each message is emitted as a [`VFileMessage`][message] on `file`, with the
 following fields:
@@ -148,14 +188,26 @@ Number between `0` and `1` to represent how many algorithms agreed (`number`).
 
 String representing the fraction of `confidence` (`string`, such as `4/7`).
 
+## Types
+
+This package is fully typed with [TypeScript][].
+It exports the additional type `Options`.
+
+## Compatibility
+
+Projects maintained by the unified collective are compatible with all maintained
+versions of Node.js.
+As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
+Our projects sometimes work with older versions, but this is not guaranteed.
+
 ## Related
 
 *   [`retext-syntax-mentions`](https://github.com/retextjs/retext-syntax-mentions)
-    — Classify [**@mentions**](https://github.com/blog/821) as syntax
+    — classify [**@mentions**](https://github.com/blog/821) as syntax
 *   [`retext-syntax-urls`](https://github.com/retextjs/retext-syntax-urls)
-    — Classify URLs and filepaths as syntax
+    — classify URLs and filepaths as syntax
 *   [`retext-simplify`](https://github.com/retextjs/retext-simplify)
-    — Check phrases for simpler alternatives
+    — check phrases for simpler alternatives
 
 ## Contribute
 
@@ -201,17 +253,25 @@ abide by its terms.
 
 [npm]: https://docs.npmjs.com/cli/install
 
+[esm]: https://gist.github.com/sindresorhus/a39789f98801d908bbc7ff3ecc99d99c
+
+[esmsh]: https://esm.sh
+
+[typescript]: https://www.typescriptlang.org
+
 [health]: https://github.com/retextjs/.github
 
-[contributing]: https://github.com/retextjs/.github/blob/HEAD/contributing.md
+[contributing]: https://github.com/retextjs/.github/blob/main/contributing.md
 
-[support]: https://github.com/retextjs/.github/blob/HEAD/support.md
+[support]: https://github.com/retextjs/.github/blob/main/support.md
 
-[coc]: https://github.com/retextjs/.github/blob/HEAD/code-of-conduct.md
+[coc]: https://github.com/retextjs/.github/blob/main/code-of-conduct.md
 
 [license]: license
 
 [author]: https://wooorm.com
+
+[unified]: https://github.com/unifiedjs/unified
 
 [retext]: https://github.com/retextjs/retext
 

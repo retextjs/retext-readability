@@ -116,7 +116,7 @@ export default function retextReadability(options = {}) {
           letter: letters
         }
 
-        /** @type {number[]} */
+        /** @type {Array<number>} */
         const scores = [
           gradeToAge(daleChallGradeLevel(daleChallFormula(counts))[1]),
           gradeToAge(automatedReadability(counts)),

@@ -86,7 +86,7 @@ import retextEnglish from 'retext-english'
 import retextStringify from 'retext-stringify'
 import retextReadability from 'retext-readability'
 
-const file = unified()
+const file = await unified()
   .use(retextEnglish)
   .use(retextReadability)
   .use(retextStringify)

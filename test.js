@@ -49,7 +49,7 @@ test('retext-readability', (t) => {
     .process('The cat sat on the mat')
     .then((file) => {
       t.deepEqual(
-        file.messages.map((d) => String(d)),
+        file.messages.map(String),
         [],
         'should not warn when a sentence is easy to read'
       )
@@ -67,7 +67,7 @@ test('retext-readability', (t) => {
     )
     .then((file) => {
       t.deepEqual(
-        file.messages.map((d) => String(d)),
+        file.messages.map(String),
         ['1:1-3:32: Hard to read sentence (confidence: 4/7)'],
         'should warn when low confidence that a sentence is hard to read'
       )
@@ -84,11 +84,7 @@ test('retext-readability', (t) => {
       ].join('\n')
     )
     .then((file) => {
-      t.deepEqual(
-        file.messages.map((d) => String(d)),
-        [],
-        'should support a threshold'
-      )
+      t.deepEqual(file.messages.map(String), [], 'should support a threshold')
     }, t.ifErr)
 
   retext()
@@ -103,7 +99,7 @@ test('retext-readability', (t) => {
     )
     .then((file) => {
       t.deepEqual(
-        file.messages.map((d) => String(d)),
+        file.messages.map(String),
         [],
         'should support a given age (removing the warning)'
       )
@@ -121,7 +117,7 @@ test('retext-readability', (t) => {
     )
     .then((file) => {
       t.deepEqual(
-        file.messages.map((d) => String(d)),
+        file.messages.map(String),
         ['1:1-3:32: Hard to read sentence (confidence: 5/7)'],
         'should support a given age (upping the warning)'
       )
@@ -139,7 +135,7 @@ test('retext-readability', (t) => {
     )
     .then((file) => {
       t.deepEqual(
-        file.messages.map((d) => String(d)),
+        file.messages.map(String),
         ['1:1-3:46: Hard to read sentence (confidence: 5/7)'],
         'should warn when moderately confident that a sentence is hard to read'
       )
@@ -158,7 +154,7 @@ test('retext-readability', (t) => {
     )
     .then((file) => {
       t.deepEqual(
-        file.messages.map((d) => String(d)),
+        file.messages.map(String),
         ['1:1-4:45: Hard to read sentence (confidence: 6/7)'],
         'should warn when highly confident that a sentence is hard to read'
       )
@@ -169,7 +165,7 @@ test('retext-readability', (t) => {
     .process('Honorificabilitudinitatibus.')
     .then((file) => {
       t.deepEqual(
-        file.messages.map((d) => String(d)),
+        file.messages.map(String),
         [],
         'should support minWords (default)'
       )
@@ -180,7 +176,7 @@ test('retext-readability', (t) => {
     .process('Honorificabilitudinitatibus.')
     .then((file) => {
       t.deepEqual(
-        file.messages.map((d) => String(d)),
+        file.messages.map(String),
         ['1:1-1:29: Hard to read sentence (confidence: 4/7)'],
         'should support `minWords` (config)'
       )

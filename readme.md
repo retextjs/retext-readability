@@ -54,14 +54,14 @@ npm install retext-readability
 In Deno with [`esm.sh`][esmsh]:
 
 ```js
-import retextReadability from 'https://esm.sh/retext-readability@7'
+import retextReadability from 'https://esm.sh/retext-readability@8'
 ```
 
 In browsers with [`esm.sh`][esmsh]:
 
 ```html
 <script type="module">
-  import retextReadability from 'https://esm.sh/retext-readability@7?bundle'
+  import retextReadability from 'https://esm.sh/retext-readability@8?bundle'
 </script>
 ```
 

@@ -17,29 +17,28 @@ test('retext-readability', (t) => {
     )
     .then((file) => {
       t.deepEqual(
-        JSON.parse(JSON.stringify(file.messages)),
-        [
-          {
-            name: '1:1-3:32',
-            message: 'Hard to read sentence (confidence: 4/7)',
-            reason: 'Hard to read sentence (confidence: 4/7)',
-            line: 1,
-            column: 1,
-            source: 'retext-readability',
-            ruleId: 'readability',
-            position: {
-              start: {line: 1, column: 1, offset: 0},
-              end: {line: 3, column: 32, offset: 132}
-            },
-            fatal: false,
-            actual:
-              'Oberon, also designated Uranus IV, is the outermost \nmajor moon of the planet Uranus and quite large\nand massive for a Uranian moon.',
-            expected: [],
-            url: 'https://github.com/retextjs/retext-readability#readme',
-            confidence: 4 / 7,
-            confidenceLabel: '4/7'
-          }
-        ],
+        JSON.parse(JSON.stringify({...file.messages[0], ancestors: []})),
+        {
+          ancestors: [],
+          column: 1,
+          fatal: false,
+          message: 'Hard to read sentence (confidence: 4/7)',
+          line: 1,
+          name: '1:1-3:32',
+          place: {
+            start: {line: 1, column: 1, offset: 0},
+            end: {line: 3, column: 32, offset: 132}
+          },
+          reason: 'Hard to read sentence (confidence: 4/7)',
+          ruleId: 'readability',
+          source: 'retext-readability',
+          actual:
+            'Oberon, also designated Uranus IV, is the outermost \nmajor moon of the planet Uranus and quite large\nand massive for a Uranian moon.',
+          expected: [],
+          url: 'https://github.com/retextjs/retext-readability#readme',
+          confidence: 0.571_428_571_428_571_4,
+          confidenceLabel: '4/7'
+        },
         'should emit messages'
       )
     }, t.ifErr)

@@ -28,14 +28,16 @@ test('retext-readability', async function (t) {
         ancestors: [],
         column: 1,
         fatal: false,
-        message: 'Hard to read sentence (confidence: 4/7)',
+        message:
+          'Unexpected hard to read sentence, according to 4 out of 7 algorithms',
         line: 1,
         name: '1:1-3:32',
         place: {
           start: {line: 1, column: 1, offset: 0},
           end: {line: 3, column: 32, offset: 132}
         },
-        reason: 'Hard to read sentence (confidence: 4/7)',
+        reason:
+          'Unexpected hard to read sentence, according to 4 out of 7 algorithms',
         ruleId: 'readability',
         source: 'retext-readability',
         actual:
@@ -72,7 +74,7 @@ test('retext-readability', async function (t) {
         )
 
       assert.deepEqual(file.messages.map(String), [
-        '1:1-3:32: Hard to read sentence (confidence: 4/7)'
+        '1:1-3:32: Unexpected hard to read sentence, according to 4 out of 7 algorithms'
       ])
     }
   )
@@ -125,7 +127,7 @@ test('retext-readability', async function (t) {
         )
 
       assert.deepEqual(file.messages.map(String), [
-        '1:1-3:32: Hard to read sentence (confidence: 5/7)'
+        '1:1-3:32: Unexpected hard to read sentence, according to 5 out of 7 algorithms'
       ])
     }
   )
@@ -145,7 +147,7 @@ test('retext-readability', async function (t) {
         )
 
       assert.deepEqual(file.messages.map(String), [
-        '1:1-3:46: Hard to read sentence (confidence: 5/7)'
+        '1:1-3:46: Unexpected hard to read sentence, according to 5 out of 7 algorithms'
       ])
     }
   )
@@ -154,7 +156,7 @@ test('retext-readability', async function (t) {
     'should warn when highly confident that a sentence is hard to read',
     async function () {
       const file = await retext()
-        .use(retextReadability, {age: 14})
+        .use(retextReadability, {age: 6})
         .process(
           [
             'Oberon, also designated Uranus IV, is the outermost ',
@@ -166,7 +168,7 @@ test('retext-readability', async function (t) {
         )
 
       assert.deepEqual(file.messages.map(String), [
-        '1:1-4:45: Hard to read sentence (confidence: 6/7)'
+        '1:1-4:45: Unexpected hard to read sentence, according to all 7 algorithms'
       ])
     }
   )
@@ -185,7 +187,7 @@ test('retext-readability', async function (t) {
       .process('Honorificabilitudinitatibus.')
 
     assert.deepEqual(file.messages.map(String), [
-      '1:1-1:29: Hard to read sentence (confidence: 4/7)'
+      '1:1-1:29: Unexpected hard to read sentence, according to 4 out of 7 algorithms'
     ])
   })
 })

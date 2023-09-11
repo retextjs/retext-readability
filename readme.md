@@ -18,6 +18,7 @@
 *   [Use](#use)
 *   [API](#api)
     *   [`unified().use(retextReadability[, options])`](#unifieduseretextreadability-options)
+    *   [`Options`](#options)
 *   [Messages](#messages)
 *   [Types](#types)
 *   [Compatibility](#compatibility)
@@ -35,7 +36,7 @@ It applies [Dale—Chall][dale-chall],
 
 ## When should I use this?
 
-You can opt-into this plugin when you’re dealing with content that might be
+You can use this plugin when you’re dealing with content that might be
 difficult to read to some folks, and have authors that can fix that content.
 
 > 💡 **Tip**: I also made an online, editable, demo, similar to this project:
@@ -44,7 +45,7 @@ difficult to read to some folks, and have authors that can fix that content.
 ## Install
 
 This package is [ESM only][esm].
-In Node.js (version 12.20+, 14.14+, 16.0+, or 18.0+), install with [npm][]:
+In Node.js (version 16+), install with [npm][]:
 
 ```sh
 npm install retext-readability
@@ -76,15 +77,15 @@ star—Calvera—and H1504+65, the hottest white dwarf yet
 discovered, with a surface temperature of 200,000 kelvin
 ```
 
-…and our module `example.js` looks as follows:
+…and our module `example.js` contains:
 
 ```js
+import retextEnglish from 'retext-english'
+import retextReadability from 'retext-readability'
+import retextStringify from 'retext-stringify'
+import {unified} from 'unified'
 import {read} from 'to-vfile'
 import {reporter} from 'vfile-reporter'
-import {unified} from 'unified'
-import retextEnglish from 'retext-english'
-import retextStringify from 'retext-stringify'
-import retextReadability from 'retext-readability'
 
 const file = await unified()
   .use(retextEnglish)
@@ -95,17 +96,17 @@ const file = await unified()
 console.error(reporter(file))
 ```
 
-…now running `node example.js` yields:
+…then running `node example.js` yields:
 
 ```txt
 example.txt
-  3:1-5:57  warning  Hard to read sentence (confidence: 4/7)  retext-readability  retext-readability
+3:1-5:57 warning Unexpected hard to read sentence, according to 4 out of 7 algorithms readability retext-readability
 
 ⚠ 1 warning
 ```
 
-The target age is `16` by default, which you can change.
-For example, to `6`:
+The default target age is `16`.
+You can pass something else, such as `6`:
 
 ```diff
    .use(retextEnglish)
@@ -114,12 +115,12 @@ For example, to `6`:
    .use(retextStringify)
 ```
 
-…now running `node example.js` once moer yields:
+…then running `node example.js` again yields:
 
 ```txt
 example.txt
-  1:1-1:23  warning  Hard to read sentence (confidence: 4/7)  retext-readability  retext-readability
-  3:1-5:57  warning  Hard to read sentence (confidence: 7/7)  retext-readability  retext-readability
+1:1-1:23 warning Unexpected hard to read sentence, according to 4 out of 7 algorithms readability retext-readability
+3:1-5:57 warning Unexpected hard to read sentence, according to all 7 algorithms      readability retext-readability
 
 ⚠ 2 warnings
 ```
@@ -127,70 +128,58 @@ example.txt
 ## API
 
 This package exports no identifiers.
-The default export is `retextReadability`.
+The default export is [`retextReadability`][api-retext-readability].
 
 ### `unified().use(retextReadability[, options])`
 
-Detect possibly hard to read sentences.
+Check hard to read sentences.
 
-##### `options`
+###### Parameters
 
-Configuration (optional).
+*   `options` ([`Options`][api-options], optional)
+    — configuration
 
-###### `options.age`
+###### Returns
 
-Target age group (`number`, default: `16`).
-Note that the different algorithms provide varying results, so your milage may
-vary with people actually that age.
-:wink:
+Transform ([`Transformer`][unified-transformer]).
 
-###### `options.threshold`
+### `Options`
 
-Number of algorithms that need to agree (`number`, default: `4 / 7`)
-By default, 4 out of the 7 algorithms need to agree that a sentence is hard to
-read for the target age, in which case it’s warned about.
+Configuration (TypeScript type).
 
-###### `options.minWords`
+###### Fields
 
-Minimum number of words a sentence should have when warning (`number`, default:
-`5`).
-Most algorithms are designed to take a large sample of sentences to detect the
-body’s reading level.
-This plugin works on a per-sentence basis and that makes the results quite
-skewered when a short sentence has a few long words or some unknown ones.
+*   `age` (`number`, default: `16`)
+    — target age group
+*   `minWords` (`number`, default: `5`)
+    — check sentences with at least this number of words;
+    most algos are made to detect the reading level on an entire text;
+    this plugin checks each sentence on its own;
+    for short sentences, one long or complex word can strongly skew the
+    results
+*   `threshold` (`number`, default: `4 / 7`)
+    — number of algos (out of 7) that need to agree something is hard to read
 
 ## Messages
 
-Each message is emitted as a [`VFileMessage`][message] on `file`, with the
-following fields:
-
-###### `message.source`
-
-Name of this plugin (`'retext-readability'`).
-
-###### `message.ruleId`
-
-Name of this rule (`'readability'`).
-
-###### `message.actual`
-
-Current not ok sentence (`string`).
-
-###### `message.expected`
-
-Empty array as there is no direct fix for `actual` (`[]`).
+Each message is emitted as a [`VFileMessage`][vfile-message], with `source` set
+to `'retext-readability'`, `ruleId` to `'readability'`, `actual` to the
+difficult sentence, and `expected` to an empty array.
 
 ## Types
 
 This package is fully typed with [TypeScript][].
-It exports the additional type `Options`.
+It exports the additional type [`Options`][api-options].
 
 ## Compatibility
 
-Projects maintained by the unified collective are compatible with all maintained
+Projects maintained by the unified collective are compatible with maintained
 versions of Node.js.
-As of now, that is Node.js 12.20+, 14.14+, 16.0+, and 18.0+.
-Our projects sometimes work with older versions, but this is not guaranteed.
+
+When we cut a new major release, we drop support for unmaintained versions of
+Node.
+This means we try to keep the current release line, `retext-readability@^7`,
+compatible with Node.js 12.
 
 ## Related
 
@@ -229,9 +218,9 @@ abide by its terms.
 
 [downloads]: https://www.npmjs.com/package/retext-readability
 
-[size-badge]: https://img.shields.io/bundlephobia/minzip/retext-readability.svg
+[size-badge]: https://img.shields.io/bundlejs/size/retext-readability
 
-[size]: https://bundlephobia.com/result?p=retext-readability
+[size]: https://bundlejs.com/?q=retext-readability
 
 [sponsors-badge]: https://opencollective.com/unified/sponsors/badge.svg
 
@@ -263,22 +252,28 @@ abide by its terms.
 
 [author]: https://wooorm.com
 
-[unified]: https://github.com/unifiedjs/unified
-
-[retext]: https://github.com/retextjs/retext
-
-[message]: https://github.com/vfile/vfile-message
-
-[dale-chall]: https://github.com/words/dale-chall-formula
-
 [automated-readability]: https://github.com/words/automated-readability
 
 [coleman-liau]: https://github.com/words/coleman-liau
+
+[dale-chall]: https://github.com/words/dale-chall-formula
 
 [flesch]: https://github.com/words/flesch
 
 [gunning-fog]: https://github.com/words/gunning-fog
 
-[spache]: https://github.com/words/spache-formula
+[retext]: https://github.com/retextjs/retext
 
 [smog]: https://github.com/words/smog-formula
+
+[spache]: https://github.com/words/spache-formula
+
+[unified]: https://github.com/unifiedjs/unified
+
+[unified-transformer]: https://github.com/unifiedjs/unified#transformer
+
+[vfile-message]: https://github.com/vfile/vfile-message
+
+[api-options]: #options
+
+[api-retext-readability]: #unifieduseretextreadability-options

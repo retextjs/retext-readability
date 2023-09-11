@@ -41,9 +41,7 @@ test('retext-readability', async function (t) {
         actual:
           'Oberon, also designated Uranus IV, is the outermost \nmajor moon of the planet Uranus and quite large\nand massive for a Uranian moon.',
         expected: [],
-        url: 'https://github.com/retextjs/retext-readability#readme',
-        confidence: 0.571_428_571_428_571_4,
-        confidenceLabel: '4/7'
+        url: 'https://github.com/retextjs/retext-readability#readme'
       }
     )
   })

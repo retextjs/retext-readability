@@ -180,14 +180,6 @@ Current not ok sentence (`string`).
 
 Empty array as there is no direct fix for `actual` (`[]`).
 
-###### `message.confidence`
-
-Number between `0` and `1` to represent how many algorithms agreed (`number`).
-
-###### `message.confidenceLabel`
-
-String representing the fraction of `confidence` (`string`, such as `4/7`).
-
 ## Types
 
 This package is fully typed with [TypeScript][].

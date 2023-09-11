@@ -83,8 +83,8 @@ discovered, with a surface temperature of 200,000 kelvin
 import retextEnglish from 'retext-english'
 import retextReadability from 'retext-readability'
 import retextStringify from 'retext-stringify'
-import {unified} from 'unified'
 import {read} from 'to-vfile'
+import {unified} from 'unified'
 import {reporter} from 'vfile-reporter'
 
 const file = await unified()
@@ -178,8 +178,8 @@ versions of Node.js.
 
 When we cut a new major release, we drop support for unmaintained versions of
 Node.
-This means we try to keep the current release line, `retext-readability@^7`,
-compatible with Node.js 12.
+This means we try to keep the current release line, `retext-readability@^8`,
+compatible with Node.js 16.
 
 ## Related
 

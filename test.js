@@ -4,6 +4,12 @@ import {retext} from 'retext'
 import retextReadability from './index.js'
 
 test('retext-readability', async function (t) {
+  await t.test('should expose the public api', async function () {
+    assert.deepEqual(Object.keys(await import('./index.js')).sort(), [
+      'default'
+    ])
+  })
+
   await t.test('should emit a message w/ metadata', async function () {
     const file = await retext()
       .use(retextReadability)

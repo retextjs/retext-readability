@@ -1,11 +1,11 @@
 import assert from 'node:assert/strict'
 import test from 'node:test'
 import {retext} from 'retext'
-import retextReadability from './index.js'
+import retextReadability from 'retext-readability'
 
 test('retext-readability', async function (t) {
   await t.test('should expose the public api', async function () {
-    assert.deepEqual(Object.keys(await import('./index.js')).sort(), [
+    assert.deepEqual(Object.keys(await import('retext-readability')).sort(), [
       'default'
     ])
   })
